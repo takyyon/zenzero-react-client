@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Home from './../components/Home';
 
 class Zenzero extends Component {
     constructor(props){
@@ -10,9 +12,12 @@ class Zenzero extends Component {
 
     render() {
         return (
-            <div>
-                Zenzero Container
-            </div>
+            <Router>
+                <Route exact path='/' 
+                    render={() => 
+                        <Home />
+                    }/>
+            </Router>
         );
     }
 }
