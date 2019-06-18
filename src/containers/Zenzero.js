@@ -8,15 +8,11 @@ class Zenzero extends Component {
     constructor(props){
         super(props);
         this.state = {
-            hideRightMenu: false
+            hideRightMenu: false,
+            showLoginPopup: false
         };
-
-        this.handleClick = this.handleClick.bind(this);
         this.toggleHideRightMenu = this.toggleHideRightMenu.bind(this);
-    }
-
-    handleClick() {
-        this.toggleHideRightMenu(true);
+        this.toggleLoginPopup = this.toggleLoginPopup.bind(this);
     }
 
     toggleHideRightMenu(flag=false) {
@@ -25,11 +21,17 @@ class Zenzero extends Component {
         });
     }
 
+    toggleLoginPopup(flag=false) {
+        this.setState({
+            showLoginPopup: flag
+        });
+    }
+
     render() {
         const { hideRightMenu } = this.state;
         const { buyer, owner } = this.props;
         return (
-            <div className='zenzero-container' onClick={this.handleClick}>
+            <div className='zenzero-container' onClick={() => this.toggleHideRightMenu(true)}>
                 <Header
                     hideRightMenu={hideRightMenu}
                     toogleHideRightMenu={this.toggleHideRightMenu}
@@ -46,6 +48,9 @@ class Zenzero extends Component {
                 </div>
                 <div className='row zenzero-footer'>
 
+                </div>
+                <div className='zenzero-global-popups'>
+                    
                 </div>
             </div>
         );
