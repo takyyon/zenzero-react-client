@@ -8,14 +8,31 @@ class Zenzero extends Component {
     constructor(props){
         super(props);
         this.state = {
-
+            hideRightMenu: false
         };
+
+        this.handleClick = this.handleClick.bind(this);
+        this.toggleHideRightMenu = this.toggleHideRightMenu.bind(this);
+    }
+
+    handleClick() {
+        this.toggleHideRightMenu(true);
+    }
+
+    toggleHideRightMenu(flag=false) {
+        this.setState({
+            hideRightMenu: flag
+        });
     }
 
     render() {
+        const { hideRightMenu } = this.state;
         return (
-            <div className='zenzero-container'>
-                <Header />
+            <div className='zenzero-container' onClick={this.handleClick}>
+                <Header
+                    hideRightMenu={hideRightMenu}
+                    toogleHideRightMenu={this.toggleHideRightMenu}
+                />
                 <div className='row zenzero-body'>
                     <Router>
                         <Route exact path='/' 

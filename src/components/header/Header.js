@@ -13,10 +13,24 @@ class Header extends Component {
         this.toggleRightMenu = this.toggleRightMenu.bind(this);
     }
 
-    toggleRightMenu() {
+
+    toggleRightMenu(e) {
+        if(e) {
+            e.stopPropagation();
+            e.preventDefault();
+        }
         this.setState({
             showRightMenu: !this.state.showRightMenu
         });
+    }
+
+    componentDidUpdate() {
+        const { hideRightMenu } = this.props;
+        
+        if(hideRightMenu && this.state.showRightMenu) {
+            this.toggleRightMenu();
+            this.props.toogleHideRightMenu();
+        }
     }
 
     render() {
@@ -29,7 +43,19 @@ class Header extends Component {
                 </div>
                 <div className='col-7'>
                     <div className="input-group mb-3 zenzero-search">
-                        <input type="text" className="form-control" placeholder="Search Restaurant" aria-label="Search Restaurant" aria-describedby="basic-addon2" />
+                        <input type="text"
+                            className="form-control col-9"
+                            placeholder="Search Restaurant"
+                            aria-label="Search Restaurant"
+                            aria-describedby="basic-addon1" />
+                        
+                        <input type="text"
+                            defaultValue='Boston, MA'
+                            className="form-control col-3"
+                            placeholder="Boston, MA"
+                            aria-label="Boston, MA"
+                            aria-describedby="basic-addon2" />
+                        
                         <div className="input-group-append">
                             <button className="btn btn-outline-secondary" type="button">
                                 <i className="fas fa-search"></i>
@@ -39,7 +65,7 @@ class Header extends Component {
                 </div>
                 <div className='col-2 text-right'>
                     <span className='dropdown zenzero-dropdown'>
-                        <i className="fas fa-user-circle" onClick={this.toggleRightMenu}></i>
+                        <i className="fas fa-user-circle" onClick={(e) => this.toggleRightMenu(e)}></i>
                         <div className={`dropdown-menu zenzero-${showRightMenu ? 'show': 'hide'}`}>
                             <a className="dropdown-item" href="#">Action</a>
                             <div className="dropdown-divider"></div>
