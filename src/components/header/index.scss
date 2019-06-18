@@ -3,6 +3,16 @@
 .zenzero-header {
     padding: 20px 10px 10px 10px;
     background-color: $header-background;
+    .zenzero-logo {
+        .logo-img {
+            width: 60px;
+            height: 40px;
+        }
+        .logo-txt {
+            height: 40px;
+            margin-left: 5px;
+        }
+    }
     .zenzero-search {
         input {
             background-color: $input-text-background;

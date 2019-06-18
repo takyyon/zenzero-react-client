@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './index.scss';
+import logo from './../../utility/img/logo.png';
+import zenzero from './../../utility/img/zenzero.png';
 
 class Header extends Component {
     constructor(props){
@@ -21,8 +23,9 @@ class Header extends Component {
         const  { showRightMenu } = this.state;
         return (
             <div className='row zenzero-header'>
-                <div className='col-3'>
-
+                <div className='col-3 text-left zenzero-logo'>
+                    <img src={logo} alt='Logo' className='logo-img'/>
+                    <img src={zenzero} alt='Zenzero' className='logo-txt'/>
                 </div>
                 <div className='col-7'>
                     <div className="input-group mb-3 zenzero-search">
