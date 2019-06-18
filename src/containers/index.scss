@@ -1,8 +1,9 @@
-@import './../utility/scss/variables.scss';
+@import './../utility/scss/_commons.scss';
 
 #zenzero {
     .zenzero-container {
         width: 100%;
+        height: 100%;
         padding: 0px;
         margin: 0px;
     }

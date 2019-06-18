@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Home from './../components/Home';
 import Header from './../components/header/Header';
 import './index.scss';
+import LoginSignup from '../components/login-signup/login-signup';
 
 class Zenzero extends Component {
     constructor(props){
@@ -13,6 +14,13 @@ class Zenzero extends Component {
         };
         this.toggleHideRightMenu = this.toggleHideRightMenu.bind(this);
         this.toggleLoginPopup = this.toggleLoginPopup.bind(this);
+        this.loginOrSignup = this.loginOrSignup.bind(this);
+    }
+
+    loginOrSignup(email, password, buyer, name='', login=true) {
+        /**
+         * Signup or Login here
+         */
     }
 
     toggleHideRightMenu(flag=false) {
@@ -28,13 +36,15 @@ class Zenzero extends Component {
     }
 
     render() {
-        const { hideRightMenu } = this.state;
+        const { hideRightMenu, showLoginPopup } = this.state;
         const { buyer, owner } = this.props;
+
         return (
             <div className='zenzero-container' onClick={() => this.toggleHideRightMenu(true)}>
                 <Header
                     hideRightMenu={hideRightMenu}
                     toogleHideRightMenu={this.toggleHideRightMenu}
+                    toggleLoginPopup={this.toggleLoginPopup}
                     buyer={buyer}
                     owner={owner}
                 />
@@ -50,8 +60,20 @@ class Zenzero extends Component {
 
                 </div>
                 <div className='zenzero-global-popups'>
-                    
+                    {showLoginPopup && (
+                        <LoginSignup
+                            close={this.toggleLoginPopup}
+                            handleSubmit={this.loginOrSignup}
+                        />
+                    )}
                 </div>
+                {
+                    showLoginPopup && (
+                        <div className='zenzero-mask'>
+                            &nbsp;
+                        </div>
+                    )
+                }
             </div>
         );
     }

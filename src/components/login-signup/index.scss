@@ -1,0 +1,22 @@
+@import './../../utility/scss/commons';
+
+.zenzero-login-signup-modal {
+    background-color: #000;
+    .modal {
+        display: initial;
+    }
+    .modal-content {
+        background-color: $modal-background;
+        color: $modal-text;
+    }
+    .zenzero-close-modal {
+        float: right;
+        font-size: 26px;
+        cursor: pointer;
+    }
+    .zenzero-footer-msg {
+        font-weight: bold;
+        font-style: italic;
+        cursor: pointer;
+    }
+}

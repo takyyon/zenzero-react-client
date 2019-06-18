@@ -46,20 +46,20 @@ class Header extends Component {
                 <div className='col-7'>
                     <div className="input-group mb-3 zenzero-search">
                         <input type="text"
-                            className="form-control col-9"
+                            className="form-control zenzero-input-text col-9"
                             placeholder="Search Restaurant"
                             aria-label="Search Restaurant"
                             aria-describedby="basic-addon1" />
                         
                         <input type="text"
                             defaultValue='Boston, MA'
-                            className="form-control col-3"
+                            className="form-control zenzero-input-text col-3"
                             placeholder="Boston, MA"
                             aria-label="Boston, MA"
                             aria-describedby="basic-addon2" />
                         
                         <div className="input-group-append">
-                            <button className="btn btn-outline-secondary" type="button">
+                            <button className="btn btn-outline-secondary zenzero-button" type="button">
                                 <i className="fas fa-search"></i>
                             </button>
                         </div>
@@ -74,13 +74,14 @@ class Header extends Component {
                             { (buyer || owner) && 
                                 (<button className='dropdown-item' >My Profile</button>)}
                             { (buyer || owner) && (buyer.isDual || owner.isDual) && 
-                                (<button className='dropdown-item' >Switch Account</button>)}
+                                (<button className='dropdown-item' >Switch Role</button>)}
                             { (buyer || owner) && 
                                 (<div className="dropdown-divider"></div>)}
                             { (buyer || owner) && 
                                 (<button className='dropdown-item' >Log out</button>)}
                             { (!buyer && !owner) && 
-                                (<button className='dropdown-item'>Login / Signup</button>)}
+                                (<button className='dropdown-item' onClick={() => this.props.toggleLoginPopup(true)}>
+                                    Login / Signup</button>)}
                         </div>
                     </span>
                 </div>

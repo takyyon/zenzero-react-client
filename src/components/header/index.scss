@@ -1,4 +1,4 @@
-@import './../../utility/scss/variables.scss';
+@import './../../utility/scss/_commons.scss';
 
 .zenzero-header {
     padding: 20px 10px 10px 10px;
@@ -14,39 +14,7 @@
         }
     }
     .zenzero-search {
-        input {
-            background-color: $input-text-background;
-            color: $input-text;
-            font-weight: bold;
-        }
-        input::-webkit-input-placeholder {
-            color: $input-text;
-            opacity: 1;
-            font-style: italic;
-            font-weight: normal;
-        }
-        input::-moz-placeholder {
-            color: $input-text;
-            opacity: 1;
-            font-style: italic;
-            font-weight: normal;
-        }
-        input:-ms-input-placeholder {
-            color: $input-text;
-            opacity: 1;
-            font-style: italic;
-            font-weight: normal;
-        }
-        input:-moz-placeholder {
-            color: $input-text;
-            opacity: 1;
-            font-style: italic;
-            font-weight: normal;
-        }
-        button {
-            background-color: $button-background;
-            color: $button-text;
-        }
+        
     }
 
     .zenzero-dropdown {
