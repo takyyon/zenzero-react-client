@@ -1,0 +1,79 @@
+@import './../../utility/scss/variables.scss';
+
+.zenzero-header {
+    padding: 20px 10px 10px 10px;
+    background-color: $header-background;
+    .zenzero-logo {
+        .logo-img {
+            width: 60px;
+            height: 40px;
+        }
+        .logo-txt {
+            height: 40px;
+            margin-left: 5px;
+        }
+    }
+    .zenzero-search {
+        input {
+            background-color: $input-text-background;
+            color: $input-text;
+            font-weight: bold;
+        }
+        input::-webkit-input-placeholder {
+            color: $input-text;
+            opacity: 1;
+            font-style: italic;
+            font-weight: normal;
+        }
+        input::-moz-placeholder {
+            color: $input-text;
+            opacity: 1;
+            font-style: italic;
+            font-weight: normal;
+        }
+        input:-ms-input-placeholder {
+            color: $input-text;
+            opacity: 1;
+            font-style: italic;
+            font-weight: normal;
+        }
+        input:-moz-placeholder {
+            color: $input-text;
+            opacity: 1;
+            font-style: italic;
+            font-weight: normal;
+        }
+        button {
+            background-color: $button-background;
+            color: $button-text;
+        }
+    }
+
+    .zenzero-dropdown {
+        cursor: pointer;
+        i {
+            font-size: 30px;
+        }
+        .zenzero-show {
+            display: initial;
+        }
+        .zenzero-hide {
+            display: none;
+        }
+        .dropdown-menu {
+            right: 0;
+            left: initial;
+            background-color: $popup-background;
+            button {
+                color: $popup-text;
+            }
+            button:hover {
+                background-color: $popup-text;
+                color: $popup-background;
+            }
+            .dropdown-divider {
+                background-color: $divider-background;
+            }
+        }
+    }
+}
