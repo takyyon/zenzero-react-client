@@ -59,7 +59,7 @@ class Header extends Component {
                             aria-describedby="basic-addon2" />
                         
                         <div className="input-group-append">
-                            <button className="btn btn-outline-secondary" type="button">
+                            <button className="btn btn-outline-secondary zenzero-button" type="button">
                                 <i className="fas fa-search"></i>
                             </button>
                         </div>
@@ -80,7 +80,8 @@ class Header extends Component {
                             { (buyer || owner) && 
                                 (<button className='dropdown-item' >Log out</button>)}
                             { (!buyer && !owner) && 
-                                (<button className='dropdown-item'>Login / Signup</button>)}
+                                (<button className='dropdown-item' onClick={() => this.props.toggleLoginPopup(true)}>
+                                    Login / Signup</button>)}
                         </div>
                     </span>
                 </div>

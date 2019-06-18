@@ -1,0 +1,7 @@
+@import './variables.scss';
+
+.zenzero-button {
+    background-color: $button-background;
+    color: $button-text;
+    border-color: $button-text;
+}
