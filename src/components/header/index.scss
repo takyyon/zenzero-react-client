@@ -1,0 +1,60 @@
+@import './../../utility/scss/variables.scss';
+
+.zenzero-header {
+    padding: 20px 10px 10px 10px;
+    background-color: $header-background;
+    .zenzero-search {
+        input {
+            background-color: $input-text-background;
+            color: $input-text;
+        }
+        input::-webkit-input-placeholder {
+            color: $input-text;
+            opacity: 1;
+        }
+        input::-moz-placeholder {
+            color: $input-text;
+            opacity: 1;
+        }
+        input:-ms-input-placeholder {
+            color: $input-text;
+            opacity: 1;
+        }
+        input:-moz-placeholder {
+            color: $input-text;
+            opacity: 1;
+        }
+        button {
+            background-color: $button-background;
+            color: $button-text;
+        }
+    }
+
+    .zenzero-dropdown {
+        cursor: pointer;
+        i {
+            font-size: 30px;
+        }
+        .zenzero-show {
+            display: initial;
+        }
+        .zenzero-hide {
+            display: none;
+        }
+        .dropdown-menu {
+            right: 0;
+            left: initial;
+            background-color: $popup-background;
+            a {
+                color: $popup-text;
+            }
+            a:hover {
+                background-color: $popup-text;
+                color: $popup-background;
+            }
+            .dropdown-divider {
+                background-color: $divider-background;
+            }
+        }
+    }
+}
