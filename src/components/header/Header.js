@@ -35,6 +35,8 @@ class Header extends Component {
 
     render() {
         const  { showRightMenu } = this.state;
+        const { buyer, owner } = this.state;
+
         return (
             <div className='row zenzero-header'>
                 <div className='col-3 text-left zenzero-logo'>
@@ -67,11 +69,20 @@ class Header extends Component {
                     <span className='dropdown zenzero-dropdown'>
                         <i className="fas fa-user-circle" onClick={(e) => this.toggleRightMenu(e)}></i>
                         <div className={`dropdown-menu zenzero-${showRightMenu ? 'show': 'hide'}`}>
-                            <a className="dropdown-item" href="#">Action</a>
-                            <div className="dropdown-divider"></div>
+                            { (buyer || owner) && 
+                                (<button className='dropdown-item' >Edit Account</button>)}
+                            { (buyer || owner) && 
+                                (<button className='dropdown-item' >My Profile</button>)}
+                            { (buyer || owner) && (buyer.isDual || owner.isDual) && 
+                                (<button className='dropdown-item' >Switch Account</button>)}
+                            { (buyer || owner) && 
+                                (<div className="dropdown-divider"></div>)}
+                            { (buyer || owner) && 
+                                (<button className='dropdown-item' >Log out</button>)}
+                            { (!buyer && !owner) && 
+                                (<button className='dropdown-item'>Login / Signup</button>)}
                         </div>
                     </span>
-                    
                 </div>
             </div>
         );

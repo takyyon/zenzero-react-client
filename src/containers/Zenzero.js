@@ -27,11 +27,14 @@ class Zenzero extends Component {
 
     render() {
         const { hideRightMenu } = this.state;
+        const { buyer, owner } = this.props;
         return (
             <div className='zenzero-container' onClick={this.handleClick}>
                 <Header
                     hideRightMenu={hideRightMenu}
                     toogleHideRightMenu={this.toggleHideRightMenu}
+                    buyer={buyer}
+                    owner={owner}
                 />
                 <div className='row zenzero-body'>
                     <Router>

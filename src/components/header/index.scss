@@ -17,22 +17,31 @@
         input {
             background-color: $input-text-background;
             color: $input-text;
+            font-weight: bold;
         }
         input::-webkit-input-placeholder {
             color: $input-text;
             opacity: 1;
+            font-style: italic;
+            font-weight: normal;
         }
         input::-moz-placeholder {
             color: $input-text;
             opacity: 1;
+            font-style: italic;
+            font-weight: normal;
         }
         input:-ms-input-placeholder {
             color: $input-text;
             opacity: 1;
+            font-style: italic;
+            font-weight: normal;
         }
         input:-moz-placeholder {
             color: $input-text;
             opacity: 1;
+            font-style: italic;
+            font-weight: normal;
         }
         button {
             background-color: $button-background;
@@ -55,10 +64,10 @@
             right: 0;
             left: initial;
             background-color: $popup-background;
-            a {
+            button {
                 color: $popup-text;
             }
-            a:hover {
+            button:hover {
                 background-color: $popup-text;
                 color: $popup-background;
             }
