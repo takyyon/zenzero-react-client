@@ -14,35 +14,7 @@
         }
     }
     .zenzero-search {
-        input {
-            background-color: $input-text-background;
-            color: $input-text;
-            font-weight: bold;
-        }
-        input::-webkit-input-placeholder {
-            color: $input-text;
-            opacity: 1;
-            font-style: italic;
-            font-weight: normal;
-        }
-        input::-moz-placeholder {
-            color: $input-text;
-            opacity: 1;
-            font-style: italic;
-            font-weight: normal;
-        }
-        input:-ms-input-placeholder {
-            color: $input-text;
-            opacity: 1;
-            font-style: italic;
-            font-weight: normal;
-        }
-        input:-moz-placeholder {
-            color: $input-text;
-            opacity: 1;
-            font-style: italic;
-            font-weight: normal;
-        }
+        
     }
 
     .zenzero-dropdown {
