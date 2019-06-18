@@ -4,8 +4,9 @@ import Zenzero from './Zenzero';
 
 
 const stateToPropertyMapper = state => ({
-    buyer: state.user.buyer,
-    owner: state.user.owner
+    buyer: state.global.buyer,
+    owner: state.global.owner,
+    restaurants: state.global.restaurants
 });
 
 

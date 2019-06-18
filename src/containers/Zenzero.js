@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Home from './../components/Home';
 import Header from './../components/header/Header';
 import './index.scss';
-import LoginSignup from '../components/login-signup/login-signup';
+import LoginSignup from '../components/login-signup/LoginSignup';
+import RestaurantGrid from '../components/restaurant-grid/RestaurantGrid';
 
 class Zenzero extends Component {
     constructor(props){
@@ -37,7 +38,7 @@ class Zenzero extends Component {
 
     render() {
         const { hideRightMenu, showLoginPopup } = this.state;
-        const { buyer, owner } = this.props;
+        const { buyer, owner, restaurants } = this.props;
 
         return (
             <div className='zenzero-container' onClick={() => this.toggleHideRightMenu(true)}>
@@ -52,7 +53,9 @@ class Zenzero extends Component {
                     <Router>
                         <Route exact path='/' 
                             render={() => 
-                                <Home />
+                                <RestaurantGrid
+                                    restaurants={restaurants}
+                                />
                             }/>
                     </Router>
                 </div>
