@@ -1,0 +1,39 @@
+@import './../utility/scss/variables.scss';
+
+#zenzero {
+    .zenzero-container {
+        width: 100%;
+        padding: 0px;
+        margin: 0px;
+        .zenzero-header {
+            padding: 20px 10px 10px 10px;
+            background-color: $header-background;
+            .zenzero-search {
+                input {
+                    background-color: $input-text-background;
+                    color: $input-text-color;
+                }
+                input::-webkit-input-placeholder {
+                    color: $input-text-color;
+                    opacity: 1;
+                }
+                input::-moz-placeholder {
+                    color: $input-text-color;
+                    opacity: 1;
+                }
+                input:-ms-input-placeholder {
+                    color: $input-text-color;
+                    opacity: 1;
+                }
+                input:-moz-placeholder {
+                    color: $input-text-color;
+                    opacity: 1;
+                }
+                button {
+                    background-color: $button-background-color;
+                    color: $button-text-color;
+                }
+            }
+        }
+    }
+}
