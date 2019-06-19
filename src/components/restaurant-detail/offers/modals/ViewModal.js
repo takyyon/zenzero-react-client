@@ -44,11 +44,11 @@ const ViewModal = ({ offer, handleClose, toggleEditAddModal, deleteOffer, buyer,
                                     owner && (
                                         <h3>
                                             <i
-                                                class="fas fa-edit"
+                                                className="fas fa-edit"
                                                 onClick={(e) => toggleEditAddModal(e, true)}
                                             ></i>&nbsp;
                                             <i
-                                                class="fas fa-trash-alt"
+                                                className="fas fa-trash-alt"
                                                 onClick={(e) => deleteOffer(e)}
                                             ></i>
                                         </h3>

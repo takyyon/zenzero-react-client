@@ -121,6 +121,33 @@ const restaurant = (state = {restaurant: b, offer: null, event: null, question: 
                 },
                 question: null
               };
+          case 'FIND_QUESTION_BY_ID':
+              return {
+                restaurant: state.restaurant,
+                event: null,
+                question: {
+                  text: 'What are the opening times of the restaurant?',
+                  id: 1,
+                  created: '2019-01-04 05:09 PM',
+                  comments: [
+                    {
+                      id: 1,
+                      user_id: 1,
+                      created: '2019-08-04 01:20 PM',
+                      text: 'Starts from 123.'
+                    }
+                  ],
+                  user: {
+                    id: 1,
+                    name: 'Krrish Mittal'
+                  },
+                  restaurant: {
+                    id: 1,
+                    name: 'The Maharaja'
+                  }
+                },
+                offer: null
+              };
         default:
             return state;
     }
