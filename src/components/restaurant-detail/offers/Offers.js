@@ -1,13 +1,22 @@
 import React from 'react';
 import './index.scss';
+import ViewModal from './modals/ViewModal';
+import EditModal from './modals/EditModal';
 
-const Offers = ({offers, toggleModal, selected, showModal, buyer, owner }) => {
+const Offers = ({offers, toggleModal, toggleEditAddModal, selected, showModal, 
+    buyer, owner, add, edit, deleteOffer, editOffer  }) => {
     return (
         <div className='zenzero-restaurant-offers'>
             <h3>Offers &nbsp;<i className="far fa-arrow-alt-circle-right"></i></h3>
             {
                 owner && (
-                    <span className="badge badge-secondary">
+                    <span
+                        className="badge badge-secondary"
+                        onClick={(e) => {
+                            toggleModal(e);
+                            toggleEditAddModal(e, false, true);
+                        }}
+                    >
                         <i className="fas fa-plus-circle"></i>
                         &nbsp;New Offer
                     </span>
@@ -19,7 +28,8 @@ const Offers = ({offers, toggleModal, selected, showModal, buyer, owner }) => {
                         return (
                             <div
                                 key={`offers-${index}`}
-                                className="col-2 text-center zenzero-restaurant-offer">
+                                className="col-2 text-center zenzero-restaurant-offer"
+                                onClick={(e) => toggleModal(e, offer.id)}>
                                 <div className="card card-block">
                                     {offer.title}
                                 </div>
@@ -33,6 +43,27 @@ const Offers = ({offers, toggleModal, selected, showModal, buyer, owner }) => {
                     )
                 }
             </div>
+            {
+                showModal && (
+                    (edit || add) ? (
+                        <EditModal
+                            offer={selected}
+                            handleClose={toggleModal}
+                            add={add}
+                            editOffer={editOffer}
+                        />
+                    ): (
+                        <ViewModal
+                            offer={selected}
+                            handleClose={toggleModal}
+                            toggleEditAddModal={toggleEditAddModal}
+                            deleteOffer={deleteOffer}
+                            buyer={buyer}
+                            owner={owner}
+                        />
+                    )
+                )
+            }
         </div>
     );
 }

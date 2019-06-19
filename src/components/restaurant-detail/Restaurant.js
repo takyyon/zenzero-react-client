@@ -20,6 +20,8 @@ class Restaurant extends Component {
         this.toggleEditAddModal = this.toggleEditAddModal.bind(this);
         this.deleteEvent = this.deleteEvent.bind(this);
         this.editEvent = this.editEvent.bind(this);
+        this.deleteOffer = this.deleteOffer.bind(this);
+        this.editOffer = this.editOffer.bind(this);
     }
 
     componentDidMount(){
@@ -81,6 +83,20 @@ class Restaurant extends Component {
         this.toggleEventModal(e);
         /**
          * Delete Event and Refresh Restaurant here.
+         */
+    }
+
+    editOffer(e, add, code, text, start, end) {
+        this.toggleOfferModal(e);
+        /**
+         * Edit Offer and refresh Restaurant Here.
+         */
+    }
+
+    deleteOffer(e) {
+        this.toggleOfferModal(e);
+        /**
+         * Delete Offer and Refresh Restaurant here.
          */
     }
 
@@ -180,6 +196,8 @@ class Restaurant extends Component {
                             owner={owner}
                             add={add}
                             edit={edit}
+                            deleteOffer={this.deleteOffer}
+                            editOffer={this.editOffer}
                         />
                     </div>
                 </div>

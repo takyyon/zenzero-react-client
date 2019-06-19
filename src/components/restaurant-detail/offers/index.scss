@@ -15,4 +15,32 @@
         padding-bottom: 5px;
         cursor: pointer;
     }
+
+    .zenzero-offer-modal {
+        background-color: #000;
+        i {
+            &.fas{
+                cursor: pointer;
+            }
+            &.zenzero-highlight {
+                color: $theme-dark;
+            }
+        }
+        .modal {
+            display: initial;
+        }
+        .modal-content {
+            color: $modal-text;
+        }
+        .modal-body {
+            color: $theme-mid-dark;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .zenzero-close-modal {
+            float: right;
+            font-size: 26px;
+            cursor: pointer;
+        }
+    }
 }
