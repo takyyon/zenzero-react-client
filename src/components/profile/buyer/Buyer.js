@@ -16,6 +16,17 @@ class Buyer extends Component {
         this.toggleEventModal = this.toggleEventModal.bind(this);
         this.toggleQuestionModal = this.toggleQuestionModal.bind(this);
         this.toggleOfferModal = this.toggleOfferModal.bind(this);
+        this.openRestaurant = this.openRestaurant.bind(this);
+        this.openBuyer = this.openBuyer.bind(this);
+    }
+
+    openBuyer(e, id) {
+        this.props.preventButtonAction(e);
+        this.props.openBuyer(id);
+    }
+
+    openRestaurant(e, id) {
+        this.props.preventButtonAction(e);
     }
 
     toggleQuestionModal(e, id=null) {
@@ -73,6 +84,7 @@ class Buyer extends Component {
                                     add={false}
                                     edit={false}
                                     profilePage={true}
+                                    openRestaurant={this.openRestaurant}
                                 />
                             </div>
                         </div>
@@ -88,6 +100,7 @@ class Buyer extends Component {
                                     add={false}
                                     edit={false}
                                     profilePage={true}
+                                    openRestaurant={this.openRestaurant}
                                 />
                             </div>
                         </div>
@@ -102,6 +115,8 @@ class Buyer extends Component {
                             owner={owner}
                             add={false}
                             profilePage={true}
+                            openRestaurant={this.openRestaurant}
+                            openBuyer={this.openBuyer}
                         />
                     </div>
                 </div>

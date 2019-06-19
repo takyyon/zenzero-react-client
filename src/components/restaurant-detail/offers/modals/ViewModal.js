@@ -1,7 +1,8 @@
 import React from 'react';
 import './../index.scss';
 
-const ViewModal = ({ offer, handleClose, toggleEditAddModal, deleteOffer, buyer, owner }) => {
+const ViewModal = ({ offer, handleClose, toggleEditAddModal,
+        deleteOffer, buyer, owner, openRestaurant }) => {
     return (
         <div className='zenzero-offer-modal'>
             <div className="modal fade show" id="exampleModalLong" tabIndex="-1" role="dialog">
@@ -18,7 +19,10 @@ const ViewModal = ({ offer, handleClose, toggleEditAddModal, deleteOffer, buyer,
                         </div>
                         <div className="modal-body">
                             <div className='form-group'>
-                                <span className="badge badge-dark">{offer.restaurant.name}</span>
+                                <span
+                                    className="badge badge-dark"
+                                    onClick={(e) => openRestaurant(e, offer.restaurant.id)}
+                                >{offer.restaurant.name}</span>
                             </div>
                             <div className='form-group'>
                                 <ul className='zenzero-list'>

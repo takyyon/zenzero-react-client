@@ -89,6 +89,7 @@ class Zenzero extends Component {
                             render={(props) =>
                                 <Restaurant
                                     preventButtonAction={this.preventButtonAction}
+                                    history={props.history}
                                     restaurantId={props.match.params.restaurantId}
                                     buyer={buyer}
                                     owner={owner}
@@ -100,6 +101,7 @@ class Zenzero extends Component {
                                 <Profile
                                     preventButtonAction={this.preventButtonAction}
                                     userId={props.match.params.userId}
+                                    history={props.history}
                                     buyer={buyer}
                                     owner={owner}
                                     buyerProfile={true}
@@ -111,6 +113,7 @@ class Zenzero extends Component {
                                 <Profile
                                     preventButtonAction={this.preventButtonAction}
                                     userId={props.match.params.userId}
+                                    history={props.history}
                                     buyer={buyer}
                                     owner={owner}
                                     buyerProfile={false}

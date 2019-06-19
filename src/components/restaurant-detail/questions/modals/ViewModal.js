@@ -24,7 +24,7 @@ class ViewModal extends Component {
     }
 
     render() {
-        const { question, handleClose, owner } = this.props;
+        const { question, handleClose, owner, openRestaurant, openBuyer } = this.props;
         return (
             <div className='zenzero-question-modal'>
                 <div className="modal fade show" id="exampleModalLong" tabIndex="-1" role="dialog">
@@ -39,7 +39,15 @@ class ViewModal extends Component {
                             </div>
                             <div className="modal-body">
                                 <div className='form-group'>
-                                    <span className="badge badge-dark">{question.restaurant.name}</span>
+                                    <span
+                                        className="badge badge-dark"
+                                        onClick={(e) => openRestaurant(e, question.restaurant.id)}
+                                    >{question.restaurant.name}</span>
+                                    &nbsp; &nbsp;
+                                    <span
+                                        className="badge badge-warning"
+                                        onClick={(e) => openBuyer(e, question.user.id)}
+                                    >{`Posted By: ${question.user.name}`}</span>
                                 </div>
                                 <p>{question.text}</p>
                                 <div className='form-group'>

@@ -9,15 +9,32 @@ class Profile extends Component {
         this.state = {
 
         };
+        this.openBuyer = this.openBuyer.bind(this);
+        this.fetchUserData = this.fetchUserData.bind(this);
     }
 
-    componentDidMount() {
+    openBuyer(id) {
+        this.props.history.push(`/buyer/${id}`);
+    }
+
+    componentDidUpdate(prevProps) {
+        if(prevProps.userId != this.props.userId) {
+            this.fetchUserData();
+        }
+    }
+
+    fetchUserData() {
         const { buyerProfile, userId } = this.props;
         if(buyerProfile) {
             this.props.findBuyerInfoById(userId);
             return;
         }
         this.props.findOwnerInfoById(userId);
+    }
+
+
+    componentDidMount() {
+        this.fetchUserData();
     }
 
     render() {
@@ -37,12 +54,14 @@ class Profile extends Component {
                             questions={userInfo.questions}
                             buyer={buyer}
                             owner={owner}
+                            openBuyer={this.openBuyer}
                         />
                     ) : (
                         <Owner
                             restaurants={userInfo.restaurants}
                             buyer={buyer}
                             owner={owner}
+                            openBuyer={this.openBuyer}
                         />
                     )
                 }

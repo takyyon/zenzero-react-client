@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './index.scss';
+import { browserHistory } from 'react-router';
 import Questions from './questions/Questions';
 import Offers from './offers/Offers';
 import Events from './events/Events';
@@ -12,7 +13,7 @@ class Restaurant extends Component {
             add: false,
             showQuestionModal: false,
             showEventModal: false,
-            showOfferModal: false,
+            showOfferModal: false
         };
         this.toggleEventModal = this.toggleEventModal.bind(this);
         this.toggleQuestionModal = this.toggleQuestionModal.bind(this);
@@ -24,10 +25,40 @@ class Restaurant extends Component {
         this.editOffer = this.editOffer.bind(this);
         this.addQuestion = this.addQuestion.bind(this);
         this.addComment = this.addComment.bind(this);
+        this.openRestaurant = this.openRestaurant.bind(this);
+        this.openBuyer = this.openBuyer.bind(this);
+        this.fetchRestaurantData = this.fetchRestaurantData.bind(this);
+    }
+
+    componentDidUpdate(prevProps) {
+        if(prevProps.restaurantId != this.props.restaurantId) {
+            this.fetchRestaurantData();
+        } 
+    }
+
+    fetchRestaurantData() {
+        this.setState({
+            edit: false,
+            add: false,
+            showQuestionModal: false,
+            showEventModal: false,
+            showOfferModal: false
+        });
+        const { restaurantId } = this.props;
     }
 
     componentDidMount(){
-        const { restaurantId } = this.props;
+        this.fetchRestaurantData();
+    }
+
+    openBuyer(e, id) {
+        this.props.preventButtonAction(e);
+        this.props.history.push(`/buyer/${id}`);
+    }
+
+    openRestaurant(e, id){
+        this.props.preventButtonAction(e);
+        this.props.history.push(`/restaurant/${id}`);
     }
 
     toggleQuestionModal(e, id=null) {
@@ -199,7 +230,8 @@ class Restaurant extends Component {
                             add={add}
                             addQuestion={this.addQuestion}
                             addComment={this.addComment}
-                            profilePage={null}
+                            openRestaurant={this.openRestaurant}
+                            openBuyer={this.openBuyer}
                         />
                     </div>
                 </div>
@@ -217,6 +249,7 @@ class Restaurant extends Component {
                             edit={edit}
                             deleteOffer={this.deleteOffer}
                             editOffer={this.editOffer}
+                            openRestaurant={this.openRestaurant}
                         />
                     </div>
                 </div>
@@ -235,6 +268,7 @@ class Restaurant extends Component {
                             edit={edit}
                             deleteEvent={this.deleteEvent}
                             editEvent={this.editEvent}
+                            openRestaurant={this.openRestaurant}
                         />
                     </div>
                 </div>
