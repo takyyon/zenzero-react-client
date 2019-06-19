@@ -8,6 +8,12 @@ class RestaurantGrid extends Component {
         this.state = {
             
         }; 
+        this.openRestaurant = this.openRestaurant.bind(this);
+    }
+
+    openRestaurant(e, id) {
+        this.props.preventButtonAction(e);
+        this.props.history.push(`/restaurant/${id}`);
     }
 
     
@@ -16,18 +22,32 @@ class RestaurantGrid extends Component {
 
         return (
             
-            <div className='zenzero-restaurant-grid'>
+            <div className='col-12 zenzero-restaurant-grid'>
                 <div className='row'>
-                    <span className="badge badge-warning">{`Term: ${term == '' ? 'NA': term}`}</span>
-                    <span className="badge badge-success">{`Location: ${location}`}</span>
+                    {
+                        term && (
+                            <span className="badge badge-warning">
+                                {`Term: ${term == '' ? 'NA': term}`}
+                            </span>
+                        )
+                    }
+                    {
+                        location && (
+                            <span className="badge badge-success">
+                                {`Location: ${location}`}
+                            </span>
+                        )
+                    }
                 </div>
                 <div className='row zenzero-grid'>
                     {
                         restaurants && restaurants.map((restaurant, index) => {
                             return (
                                 <RestaurantCard
+                                    preventButtonAction={this.props.preventButtonAction}
                                     restaurant={restaurant}
                                     key={`restaurant-${index}`}
+                                    openRestaurant={this.openRestaurant}
                                 />);
                         })
                     }

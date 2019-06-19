@@ -27,6 +27,7 @@ class Buyer extends Component {
 
     openRestaurant(e, id) {
         this.props.preventButtonAction(e);
+        this.props.openRestaurant(id);
     }
 
     toggleQuestionModal(e, id=null) {

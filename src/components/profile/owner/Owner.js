@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './index.scss';
+import Restaurant from '../../restaurant-detail/Restaurant';
 
 
 class Owner extends Component {
@@ -10,11 +11,18 @@ class Owner extends Component {
         };
     }
 
-    render() {
-        return (
-            <div className='zenzero-owner-profile'>
+    componentDidMount(){
 
-            </div>
+    }
+
+    render() {
+        const { restaurant, preventButtonAction, history } = this.props;
+        return (
+            <Restaurant
+                restaurant={restaurant}
+                preventButtonAction={preventButtonAction}
+                history={history}
+            />
         );
     }
 }

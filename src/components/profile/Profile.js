@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import Buyer from './buyer/Buyer';
 import Owner from './owner/Owner';
+import RestaurantGrid from '../restaurant-grid/RestaurantGrid';
 
 class Profile extends Component {
     constructor(props) {
@@ -11,14 +12,21 @@ class Profile extends Component {
         };
         this.openBuyer = this.openBuyer.bind(this);
         this.fetchUserData = this.fetchUserData.bind(this);
+        this.openRestaurant = this.openRestaurant.bind(this);
     }
 
     openBuyer(id) {
         this.props.history.push(`/buyer/${id}`);
     }
 
+    openRestaurant(id) {
+        this.props.history.push(`restaurant/${id}`);
+    }
+
     componentDidUpdate(prevProps) {
-        if(prevProps.userId != this.props.userId) {
+        if((prevProps.userId != this.props.userId) ||
+            prevProps.userId == this.props.userId &&
+            prevProps.buyerProfile != this.props.buyerProfile) {
             this.fetchUserData();
         }
     }
@@ -37,13 +45,13 @@ class Profile extends Component {
     }
 
     render() {
-        const { buyer, owner, userId, userInfo, buyerProfile } = this.props;
+        const { buyer, owner, userId, userInfo, buyerProfile, preventButtonAction, history } = this.props;
         if(owner && owner.userId != userId){
             return <Redirect to='/'/>;
         }
         
         return (
-            <div className='col-12 zenzero-profile'>
+            <div className='col-12'>
                 <h3><span className="badge badge-success">{userInfo.name}</span></h3>
                 {
                     buyerProfile ? (
@@ -54,16 +62,19 @@ class Profile extends Component {
                             buyer={buyer}
                             owner={owner}
                             openBuyer={this.openBuyer}
+                            openRestaurant={this.openRestaurant}
                             findOfferById={this.props.findOfferById}
                             findQuestionById={this.props.findQuestionById}
                             findEventById={this.props.findEventById}
                         />
                     ) : (
-                        <Owner
+                        <RestaurantGrid
                             restaurants={userInfo.restaurants}
                             buyer={buyer}
                             owner={owner}
-                            openBuyer={this.openBuyer}
+                            history={history}
+                            preventButtonAction={preventButtonAction}
+                            buyerProfile={true}
                         />
                     )
                 }

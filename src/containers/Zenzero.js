@@ -78,9 +78,11 @@ class Zenzero extends Component {
                     <div className='row zenzero-body'>
                         
                         <Route exact path='/' 
-                            render={() => 
+                            render={(props) => 
                                 <RestaurantGrid
+                                    preventButtonAction={this.preventButtonAction}
                                     restaurants={restaurants}
+                                    history={props.history}
                                     term={term}
                                     location={location}
                                 />

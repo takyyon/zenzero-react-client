@@ -38,7 +38,7 @@ const o = {
   name: 'Krrish Mittal',
   userId: 1311113
 }
-const global = (state = {buyer: o, owner: null, restaurants: b}, action) => {
+const global = (state = {buyer: null, owner: o, restaurants: b}, action) => {
 
     switch (action.type) {
         case 'UPDATE_OWNER':
