@@ -26,5 +26,12 @@
             color: $theme-mid-dark;
             font-style: italic;
         }
+        .zenzero-add-restaurant {
+            background: $theme-light;
+            color: $theme-mid-dark;
+            .badge {
+                cursor: pointer;
+            }
+        }
     }
 }

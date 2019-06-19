@@ -22,6 +22,14 @@ class Zenzero extends Component {
         this.loginOrSignup = this.loginOrSignup.bind(this);
         this.findRestaurants = this.findRestaurants.bind(this);
         this.preventButtonAction = this.preventButtonAction.bind(this);
+        this.becomeOwner = this.becomeOwner.bind(this);
+    }
+
+    becomeOwner(e, id) {
+        /**
+         * Own a restaurant
+         */
+        
     }
 
     preventButtonAction(e) {
@@ -85,6 +93,9 @@ class Zenzero extends Component {
                                     history={props.history}
                                     term={term}
                                     location={location}
+                                    buyer={buyer}
+                                    owner={owner}
+                                    becomeOwner={this.becomeOwner}
                                 />
                             }/>
                         <Route exact path='/restaurant/:restaurantId'

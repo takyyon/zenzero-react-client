@@ -1,7 +1,8 @@
 import React from 'react';
 import './index.scss';
 
-const RestaurantCard = ({ restaurant, openRestaurant, preventButtonAction }) => {
+const RestaurantCard = ({ restaurant, openRestaurant, preventButtonAction, 
+        buyer, owner, profile, becomeOwner }) => {
     return (
         <div
             className='col-lg-3 col-md-4 col-sm-12 zenzero-restaurant-card'
@@ -37,6 +38,19 @@ const RestaurantCard = ({ restaurant, openRestaurant, preventButtonAction }) => 
                         </div>
                     </div>
                 </div>
+                {
+                    !profile && owner
+                        && (!restaurant.user || (restaurant.user.id != owner.userId)) && (
+                        <div className='card-footer zenzero-add-restaurant'>
+                            <div className='col-12 text-center'>
+                                <span
+                                    className="badge badge-info"
+                                    onClick={(e) => becomeOwner(e, restaurant.id)}
+                                >Become an Owner</span>
+                            </div>
+                        </div>
+                    ) 
+                }
             </div>
         </div>
     );

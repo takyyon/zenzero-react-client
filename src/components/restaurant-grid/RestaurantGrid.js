@@ -18,7 +18,7 @@ class RestaurantGrid extends Component {
 
     
     render() {
-        const  { restaurants, term, location } = this.props;
+        const  { restaurants, term, location, profile, buyer, owner } = this.props;
 
         return (
             
@@ -48,6 +48,10 @@ class RestaurantGrid extends Component {
                                     restaurant={restaurant}
                                     key={`restaurant-${index}`}
                                     openRestaurant={this.openRestaurant}
+                                    profile={profile}
+                                    buyer={buyer}
+                                    owner={owner}
+                                    becomeOwner={this.props.becomeOwner}
                                 />);
                         })
                     }

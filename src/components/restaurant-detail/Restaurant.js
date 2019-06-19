@@ -27,6 +27,7 @@ class Restaurant extends Component {
         this.addComment = this.addComment.bind(this);
         this.openRestaurant = this.openRestaurant.bind(this);
         this.openBuyer = this.openBuyer.bind(this);
+        this.openOwner = this.openOwner.bind(this);
         this.fetchRestaurantData = this.fetchRestaurantData.bind(this);
     }
 
@@ -54,6 +55,11 @@ class Restaurant extends Component {
     openBuyer(e, id) {
         this.props.preventButtonAction(e);
         this.props.history.push(`/buyer/${id}`);
+    }
+
+    openOwner(e, id) {
+        this.props.preventButtonAction(e);
+        this.props.history.push(`/owner/${id}`);
     }
 
     openRestaurant(e, id){
@@ -167,7 +173,20 @@ class Restaurant extends Component {
                                 />
                             </div>
                             <div className='col-7'>
-                                <h2 className='zenzero-restaurant-name'>{restaurant.name}</h2>
+                                <h2 className='zenzero-restaurant-name'>
+                                    {restaurant.name}
+                                </h2>
+                                <h6>
+                                    {
+                                        !owner && restaurant.user && (
+                                            <span
+                                                className="badge badge-info zenzero-owner"
+                                                onClick={(e) => this.openOwner(e, restaurant.user.id)}>
+                                                {`Owned By: ${restaurant.user.name}`}
+                                            </span>
+                                        )
+                                    }
+                                </h6>
                                 <h4 className='zenzero-restaurant-phone'>{restaurant.phone}</h4>
                                 <div className='zenzero-restaurant-categories'>
                                     {

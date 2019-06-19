@@ -74,7 +74,7 @@ class Profile extends Component {
                             owner={owner}
                             history={history}
                             preventButtonAction={preventButtonAction}
-                            buyerProfile={true}
+                            profile={true}
                         />
                     )
                 }
