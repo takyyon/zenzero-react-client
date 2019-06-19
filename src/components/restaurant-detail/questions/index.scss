@@ -1,0 +1,53 @@
+@import './../../../utility/scss/commons';
+
+.zenzero-restaurant-questions {
+    border-left: 0.5px solid $theme-dark;
+    overflow: scroll;
+    padding-left: 20px;
+    .badge {
+        padding: 5px;
+        margin-bottom: 10px;
+        cursor: pointer;
+    }
+    .zenzero-restaurant-question {
+        cursor: pointer;
+        margin-left: 10px;
+        margin-top: 10px;
+        .card {
+            padding: 5px;
+        }
+    }
+
+    .zenzero-question-modal {
+        background-color: #000;
+        i {
+            &.fas{
+                cursor: pointer;
+            }
+            &.zenzero-highlight {
+                color: $theme-dark;
+            }
+        }
+        ul li{
+            background: $theme-light;
+            color: $theme-mid;
+            border-color: $theme-light;
+        }
+        .modal {
+            display: initial;
+        }
+        .modal-content {
+            color: $modal-text;
+        }
+        .modal-body {
+            color: $theme-mid-dark;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .zenzero-close-modal {
+            float: right;
+            font-size: 26px;
+            cursor: pointer;
+        }
+    }
+}

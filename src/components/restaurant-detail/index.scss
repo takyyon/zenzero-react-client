@@ -1,0 +1,29 @@
+@import './../../utility/scss/commons';
+
+.zenzero-restaurant-detail {
+    width: 100%;
+    .zenzero-restaurant-thumb {
+        width: 300px;
+        height: 300px;
+    }
+    .zenzero-restaurant-categories {
+        .badge {
+            margin-right: 5px;
+        }
+    }
+    .zenzero-restaurant-phone {
+        margin-top: 15px;
+    }
+    .zenzero-restaurant-categories {
+        margin-top: 15px;
+    }
+    .zenzero-restaurant-address {
+        margin-top: 15px;
+    }
+    .zenzero-restaurant-yelp {
+        margin-top: 15px;
+    }
+    .zenzero-restaurant-price {
+        margin-top: 15px;
+    }
+}
