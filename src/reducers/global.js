@@ -36,7 +36,7 @@ const b = [
 const o = {
   id: 1,
   name: 'Krrish Mittal',
-  user_id: 1311113
+  userId: 1311113
 }
 const global = (state = {buyer: o, owner: null, restaurants: b}, action) => {
 

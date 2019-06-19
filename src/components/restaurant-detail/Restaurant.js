@@ -199,6 +199,7 @@ class Restaurant extends Component {
                             add={add}
                             addQuestion={this.addQuestion}
                             addComment={this.addComment}
+                            profilePage={null}
                         />
                     </div>
                 </div>

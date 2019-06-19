@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './index.scss';
+import { Link } from 'react-router-dom';
 import logo from './../../utility/img/logo.png';
 import zenzero from './../../utility/img/zenzero.png';
 
@@ -15,6 +16,7 @@ class Header extends Component {
         this.onChange = this.onChange.bind(this);
         this.toggleRightMenu = this.toggleRightMenu.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
+        this.getUserId = this.getUserId.bind(this);
     }
 
     onChange(e) {
@@ -54,10 +56,20 @@ class Header extends Component {
         }
     }
 
+    getUserId() {
+        const { buyer, owner } = this.props;
+        
+        if(buyer)
+            return buyer.userId;
+        if(owner)
+            return owner.userId;
+        return null;
+    }
+
     render() {
         const  { showRightMenu } = this.state;
-        const { buyer, owner } = this.state;
-
+        const { buyer, owner } = this.props;
+        
         return (
             <div className='row zenzero-header'>
                 <div className='col-3 text-left zenzero-logo'>
@@ -102,8 +114,14 @@ class Header extends Component {
                             { (buyer || owner) && 
                                 (<button className='dropdown-item' >Edit Account</button>)}
                             { (buyer || owner) && 
-                                (<button className='dropdown-item' >My Profile</button>)}
-                            { (buyer || owner) && (buyer.isDual || owner.isDual) && 
+                                (
+                                    <Link to={`/${buyer?'buyer':'owner'}/${this.getUserId()}`}><button
+                                        className='dropdown-item'
+                                        id='profile'
+                                        onClick={this.handleClick}
+                                    >My Profile</button></Link>
+                                )}
+                            { ((buyer && buyer.isDual) || (owner && owner.isDual)) && 
                                 (<button className='dropdown-item' >Switch Role</button>)}
                             { (buyer || owner) && 
                                 (<div className="dropdown-divider"></div>)}
