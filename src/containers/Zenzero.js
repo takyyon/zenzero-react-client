@@ -7,6 +7,7 @@ import LoginSignup from '../components/login-signup/LoginSignup';
 import RestaurantGrid from '../components/restaurant-grid/RestaurantGrid';
 import Restaurant from './Restaurant';
 import Profile from './../containers/Profile';
+import Account from '../components/account/Account';
 
 class Zenzero extends Component {
     constructor(props){
@@ -23,6 +24,15 @@ class Zenzero extends Component {
         this.findRestaurants = this.findRestaurants.bind(this);
         this.preventButtonAction = this.preventButtonAction.bind(this);
         this.becomeOwner = this.becomeOwner.bind(this);
+        this.updateUser = this.updateUser.bind(this);
+    }
+
+    updateUser(newUser) {
+
+    }
+
+    registerUserAsSecondType() {
+        
     }
 
     becomeOwner(e, id) {
@@ -130,6 +140,15 @@ class Zenzero extends Component {
                                     buyer={buyer}
                                     owner={owner}
                                     buyerProfile={false}
+                                />
+                            }
+                        />
+                        <Route exact path='/edit-account'
+                            render={(props) => 
+                                <Account
+                                    preventButtonAction={this.preventButtonAction}
+                                    buyer={buyer}
+                                    owner={owner}
                                 />
                             }
                         />
