@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './index.scss';
 import Questions from '../../restaurant-detail/questions/Questions';
+import Offers from '../../restaurant-detail/offers/Offers';
+import Events from '../../restaurant-detail/events/Events';
 
 
 class Buyer extends Component {
@@ -58,26 +60,47 @@ class Buyer extends Component {
         return (
             <div className='zenzero-buyer-profile'>
                 <div className='row'>
-                    <div className='col-8'>
+                    <div className='col-8 zenzero-offer-events'>
                         <div className='row'>
-
+                            <div className='col-12'>
+                                <Offers
+                                    offers={offers}
+                                    toggleModal={this.toggleOfferModal}
+                                    selected={offer}
+                                    showModal={showOfferModal}
+                                    buyer={buyer}
+                                    owner={owner}
+                                    add={false}
+                                    edit={false}
+                                    profilePage={true}
+                                />
+                            </div>
                         </div>
                         <div className='row'>
-                            
+                            <div className='col-12'>
+                                <Events
+                                    events={events}
+                                    toggleModal={this.toggleEventModal}
+                                    selected={event}
+                                    showModal={showEventModal}
+                                    buyer={buyer}
+                                    owner={owner}
+                                    add={false}
+                                    edit={false}
+                                    profilePage={true}
+                                />
+                            </div>
                         </div>
                     </div>
                     <div className='col-4'>
                         <Questions
                             questions={questions}
                             toggleModal={this.toggleQuestionModal}
-                            toggleEditAddModal={undefined}
                             selected={question}
                             showModal={showQuestionModal}
                             buyer={buyer}
                             owner={owner}
                             add={false}
-                            addQuestion={undefined}
-                            addComment={undefined}
                             profilePage={true}
                         />
                     </div>

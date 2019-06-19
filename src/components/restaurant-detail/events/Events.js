@@ -39,7 +39,7 @@ const Events = ({ events, toggleModal, toggleEditAddModal,
                 }
                 {
                     (!events || events.length == 0) && (
-                        <h6 className='col-2 text-center'>No Events found.</h6>
+                        <h6 className='col-3 text-center'>No Events found.</h6>
                     )
                 }
             </div>

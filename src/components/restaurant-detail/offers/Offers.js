@@ -39,7 +39,7 @@ const Offers = ({offers, toggleModal, toggleEditAddModal, selected, showModal,
                 }
                 {
                     (!offers || offers.length == 0) && (
-                        <h6>No Offers found.</h6>
+                        <h6 className='col-3 text-center'>No Offers found.</h6>
                     )
                 }
             </div>

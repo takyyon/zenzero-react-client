@@ -28,7 +28,7 @@ class Profile extends Component {
         
         return (
             <div className='col-12 zenzero-profile'>
-                <h3><span class="badge badge-success">{userInfo.name}</span></h3>
+                <h3><span className="badge badge-success">{userInfo.name}</span></h3>
                 {
                     buyerProfile ? (
                         <Buyer
