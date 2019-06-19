@@ -4,7 +4,7 @@ import ViewModal from './modals/ViewModal';
 import EditModal from './modals/EditModal';
 
 const Events = ({ events, toggleModal, toggleEditAddModal,
-    selected, showModal, buyer, owner, add, edit, deleteEvent, editEvent }) => {
+    selected, showModal, buyer, owner, add, edit, deleteEvent, editEvent, openRestaurant }) => {
     return (
         <div className='zenzero-restaurant-events'>
             <h3>Events &nbsp;<i className="far fa-arrow-alt-circle-right"></i></h3>
@@ -39,7 +39,7 @@ const Events = ({ events, toggleModal, toggleEditAddModal,
                 }
                 {
                     (!events || events.length == 0) && (
-                        <h6 className='col-2 text-center'>No Events found.</h6>
+                        <h6 className='col-3 text-center'>No Events found.</h6>
                     )
                 }
             </div>
@@ -60,6 +60,7 @@ const Events = ({ events, toggleModal, toggleEditAddModal,
                             deleteEvent={deleteEvent}
                             buyer={buyer}
                             owner={owner}
+                            openRestaurant={openRestaurant}
                         />
                     )
                 )

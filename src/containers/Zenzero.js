@@ -6,6 +6,7 @@ import './index.scss';
 import LoginSignup from '../components/login-signup/LoginSignup';
 import RestaurantGrid from '../components/restaurant-grid/RestaurantGrid';
 import Restaurant from './Restaurant';
+import Profile from './../containers/Profile';
 
 class Zenzero extends Component {
     constructor(props){
@@ -21,6 +22,14 @@ class Zenzero extends Component {
         this.loginOrSignup = this.loginOrSignup.bind(this);
         this.findRestaurants = this.findRestaurants.bind(this);
         this.preventButtonAction = this.preventButtonAction.bind(this);
+        this.becomeOwner = this.becomeOwner.bind(this);
+    }
+
+    becomeOwner(e, id) {
+        /**
+         * Own a restaurant
+         */
+        
     }
 
     preventButtonAction(e) {
@@ -63,57 +72,88 @@ class Zenzero extends Component {
         const { buyer, owner, restaurants } = this.props;
 
         return (
-            <div className='zenzero-container' onClick={() => this.toggleHideRightMenu(true)}>
-                <Header
-                    hideRightMenu={hideRightMenu}
-                    toogleHideRightMenu={this.toggleHideRightMenu}
-                    toggleLoginPopup={this.toggleLoginPopup}
-                    buyer={buyer}
-                    owner={owner}
-                    findRestaurants={this.findRestaurants}
-                    preventButtonAction={this.preventButtonAction}
-                />
-                <div className='row zenzero-body'>
-                    <Router>
+            <Router>
+                <div className='zenzero-container' onClick={() => this.toggleHideRightMenu(true)}>
+                    <Header
+                        hideRightMenu={hideRightMenu}
+                        toogleHideRightMenu={this.toggleHideRightMenu}
+                        toggleLoginPopup={this.toggleLoginPopup}
+                        buyer={buyer}
+                        owner={owner}
+                        findRestaurants={this.findRestaurants}
+                        preventButtonAction={this.preventButtonAction}
+                    />
+                    <div className='row zenzero-body'>
+                        
                         <Route exact path='/' 
-                            render={() => 
+                            render={(props) => 
                                 <RestaurantGrid
+                                    preventButtonAction={this.preventButtonAction}
                                     restaurants={restaurants}
+                                    history={props.history}
                                     term={term}
                                     location={location}
+                                    buyer={buyer}
+                                    owner={owner}
+                                    becomeOwner={this.becomeOwner}
                                 />
                             }/>
                         <Route exact path='/restaurant/:restaurantId'
                             render={(props) =>
                                 <Restaurant
                                     preventButtonAction={this.preventButtonAction}
+                                    history={props.history}
                                     restaurantId={props.match.params.restaurantId}
                                     buyer={buyer}
                                     owner={owner}
                                 />
                             }
                         />
-                    </Router>
-                </div>
-                <div className='row zenzero-footer'>
-
-                </div>
-                <div className='zenzero-global-popups'>
-                    {showLoginPopup && (
-                        <LoginSignup
-                            close={this.toggleLoginPopup}
-                            handleSubmit={this.loginOrSignup}
+                        <Route exact path='/buyer/:userId'
+                            render={(props) =>
+                                <Profile
+                                    preventButtonAction={this.preventButtonAction}
+                                    userId={props.match.params.userId}
+                                    history={props.history}
+                                    buyer={buyer}
+                                    owner={owner}
+                                    buyerProfile={true}
+                                />
+                            }
                         />
-                    )}
+                        <Route exact path='/owner/:userId'
+                            render={(props) =>
+                                <Profile
+                                    preventButtonAction={this.preventButtonAction}
+                                    userId={props.match.params.userId}
+                                    history={props.history}
+                                    buyer={buyer}
+                                    owner={owner}
+                                    buyerProfile={false}
+                                />
+                            }
+                        />
+                    </div>
+                    <div className='row zenzero-footer'>
+
+                    </div>
+                    <div className='zenzero-global-popups'>
+                        {showLoginPopup && (
+                            <LoginSignup
+                                close={this.toggleLoginPopup}
+                                handleSubmit={this.loginOrSignup}
+                            />
+                        )}
+                    </div>
+                    {
+                        showLoginPopup && (
+                            <div className='zenzero-mask'>
+                                &nbsp;
+                            </div>
+                        )
+                    }
                 </div>
-                {
-                    showLoginPopup && (
-                        <div className='zenzero-mask'>
-                            &nbsp;
-                        </div>
-                    )
-                }
-            </div>
+            </Router>
         );
     }
 }

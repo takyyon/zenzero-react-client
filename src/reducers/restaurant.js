@@ -72,8 +72,12 @@ const b =
         {
           "title": "fwevuwnivowneo ivwihvnwvn wiweg we gwgwvnweinviwn",
           "id": 2
-        }
-      ]
+        },
+      ],
+      "user": {
+        "name": "Dhoni",
+        "id": 3423423
+      }
     };
 const restaurant = (state = {restaurant: b, offer: null, event: null, question: null}, action) => {
 

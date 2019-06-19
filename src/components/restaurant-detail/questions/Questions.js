@@ -3,13 +3,13 @@ import './index.scss';
 import ViewModal from './modals/ViewModal';
 import EditModal from './modals/EditModal';
 
-const Questions = ({ questions, toggleModal, toggleEditAddModal, selected,
-        showModal, buyer, owner, add, addQuestion, addComment }) => {
+const Questions = ({ questions, toggleModal, toggleEditAddModal, selected, openBuyer,
+        showModal, buyer, owner, add, addQuestion, addComment, profilePage, openRestaurant }) => {
     return (
         <div className='zenzero-restaurant-questions'>
             <h3>Questions &nbsp; <i className="far fa-arrow-alt-circle-down"></i></h3>
             {
-                buyer && (
+                (profilePage == null) && buyer && (
                     <span 
                         className="badge badge-secondary"
                         onClick={(e) => {
@@ -56,6 +56,8 @@ const Questions = ({ questions, toggleModal, toggleEditAddModal, selected,
                             addComment={addComment}
                             buyer={buyer}
                             owner={owner}
+                            openRestaurant={openRestaurant}
+                            openBuyer={openBuyer}
                         />
                     )
                 )

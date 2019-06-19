@@ -14,6 +14,7 @@
         }
     }
     .zenzero-restaurant-card {
+        cursor: pointer;
         .card-img-top {
             height: 200px;
         }
@@ -24,6 +25,13 @@
         .card-text {
             color: $theme-mid-dark;
             font-style: italic;
+        }
+        .zenzero-add-restaurant {
+            background: $theme-light;
+            color: $theme-mid-dark;
+            .badge {
+                cursor: pointer;
+            }
         }
     }
 }

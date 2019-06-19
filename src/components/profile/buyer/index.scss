@@ -1,0 +1,16 @@
+@import './../../../utility/scss/commons';
+
+.zenzero-buyer-profile{
+    .zenzero-offer-events {
+        border-right: 0.5px solid $theme-dark;
+    }
+    .zenzero-restaurant-offers {
+        border: none !important;
+    }
+    .zenzero-restaurant-events {
+        border: none !important;
+    }
+    .zenzero-restaurant-questions {
+        border: none !important;
+    }
+}

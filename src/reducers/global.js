@@ -30,15 +30,19 @@ const b = [
         "zip_code": "94103"
       },
       "distance": 1604.23,
-      "transactions": ["pickup", "delivery"]
+      "transactions": ["pickup", "delivery"],
+      "user": {
+        id: 1,
+        name: "Krrish Mittal"
+      }
     }];
 
 const o = {
   id: 1,
   name: 'Krrish Mittal',
-  user_id: 1311113
+  userId: 2
 }
-const global = (state = {buyer: o, owner: null, restaurants: b}, action) => {
+const global = (state = {buyer: null, owner: o, restaurants: b}, action) => {
 
     switch (action.type) {
         case 'UPDATE_OWNER':
