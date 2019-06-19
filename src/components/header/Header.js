@@ -7,18 +7,39 @@ class Header extends Component {
     constructor(props){
         super(props);
         this.state = {
-            showRightMenu: false
+            showRightMenu: false,
+            term: '',
+            location: 'Boston, MA'
         };
 
+        this.onChange = this.onChange.bind(this);
         this.toggleRightMenu = this.toggleRightMenu.bind(this);
+        this.handleSearch = this.handleSearch.bind(this);
     }
 
+    onChange(e) {
+        if(!e || !e.target){
+            return;
+        }
+        if(e.target.id == 'term'){
+            this.setState({
+                term: e.target.value
+            });
+        }
+        if(e.target.id == 'location') {
+            this.setState({
+                location: (e.target.value == '') ? 'Boston, MA' : e.target.value
+            });
+        }
+    }
+
+    handleSearch(e){
+        this.props.preventButtonAction(e);
+        this.props.findRestaurants(this.state.term, this.state.location);
+    }
 
     toggleRightMenu(e) {
-        if(e) {
-            e.stopPropagation();
-            e.preventDefault();
-        }
+        this.props.preventButtonAction(e);
         this.setState({
             showRightMenu: !this.state.showRightMenu
         });
@@ -46,6 +67,9 @@ class Header extends Component {
                 <div className='col-7'>
                     <div className="input-group mb-3 zenzero-search">
                         <input type="text"
+                            id='term'
+                            onChange={this.onChange}
+                            onClick={(e) => this.props.preventButtonAction(e)}
                             className="form-control zenzero-input-text col-9"
                             placeholder="Search Restaurant"
                             aria-label="Search Restaurant"
@@ -53,13 +77,19 @@ class Header extends Component {
                         
                         <input type="text"
                             defaultValue='Boston, MA'
+                            id='location'
+                            onClick={(e) => this.props.preventButtonAction(e) }
+                            onChange={this.onChange}
                             className="form-control zenzero-input-text col-3"
                             placeholder="Boston, MA"
                             aria-label="Boston, MA"
                             aria-describedby="basic-addon2" />
                         
                         <div className="input-group-append">
-                            <button className="btn btn-outline-secondary zenzero-button" type="button">
+                            <button 
+                                className="btn btn-outline-secondary zenzero-button"
+                                type="button"
+                                onClick={(e) => this.handleSearch(e)}>
                                 <i className="fas fa-search"></i>
                             </button>
                         </div>

@@ -1,0 +1,29 @@
+@import './../../utility/scss/commons';
+
+.zenzero-restaurant-grid {
+    .row {
+        .badge {
+            margin-right: 10px;
+        }
+    }
+    .zenzero-grid {
+        margin-top: 20px;
+        .zenzero-message {
+            font-size: 22px;
+            font-style: italic;
+        }
+    }
+    .zenzero-restaurant-card {
+        .card-img-top {
+            height: 200px;
+        }
+        .card-title {
+            color: $theme-dark;
+            font-weight: bolder;
+        }
+        .card-text {
+            color: $theme-mid-dark;
+            font-style: italic;
+        }
+    }
+}
