@@ -26,47 +26,4 @@
     .zenzero-restaurant-price {
         margin-top: 15px;
     }
-
-    .zenzero-restaurant-questions {
-        border-left: 0.5px solid $theme-dark;
-        overflow: scroll;
-        padding-left: 20px;
-        .badge {
-            padding: 5px;
-            margin-bottom: 10px;
-        }
-        .zenzero-restaurant-question {
-            cursor: pointer;
-            margin-left: 10px;
-            margin-top: 10px;
-            .card {
-                padding: 5px;
-            }
-        }
-    }
-
-    .zenzero-restaurant-offers {
-        border-top: 0.5px solid $theme-dark;
-        margin-top: 30px;
-        padding-top: 15px;
-        padding-bottom: 15px;
-        .zenzero-restaurant-offer {
-            padding-top: 5px;
-            padding-bottom: 5px;
-            cursor: pointer;
-        }
-    }
-
-    .zenzero-restaurant-events {
-        border-top: 0.5px solid $theme-dark;
-        margin-top: 30px;
-        padding-top: 15px;
-        padding-bottom: 15px;
-        .zenzero-restaurant-event {
-            padding-top: 5px;
-            padding-bottom: 5px;
-            cursor: pointer;
-        }
-    }
-    
 }

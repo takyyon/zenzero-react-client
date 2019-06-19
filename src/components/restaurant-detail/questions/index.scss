@@ -1,0 +1,20 @@
+@import './../../../utility/scss/commons';
+
+.zenzero-restaurant-questions {
+    border-left: 0.5px solid $theme-dark;
+    overflow: scroll;
+    padding-left: 20px;
+    .badge {
+        padding: 5px;
+        margin-bottom: 10px;
+        cursor: pointer;
+    }
+    .zenzero-restaurant-question {
+        cursor: pointer;
+        margin-left: 10px;
+        margin-top: 10px;
+        .card {
+            padding: 5px;
+        }
+    }
+}

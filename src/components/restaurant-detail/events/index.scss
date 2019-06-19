@@ -1,0 +1,13 @@
+@import './../../../utility/scss/commons';
+
+.zenzero-restaurant-events {
+    border-top: 0.5px solid $theme-dark;
+    margin-top: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    .zenzero-restaurant-event {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        cursor: pointer;
+    }
+}

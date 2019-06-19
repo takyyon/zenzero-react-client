@@ -1,9 +1,41 @@
 import React, { Component } from 'react';
 import './index.scss';
+import Questions from './questions/Questions';
+import Offers from './offers/Offers';
+import Events from './events/Events';
 
 class Restaurant extends Component {
     constructor(props){
         super(props);
+        this.state = {
+            question: null,
+            event: null,
+            offer: null,
+            showQuestionModal: false,
+            showEventModal: false,
+            showOfferModal: false,
+        };
+        this.toggleEventModal = this.toggleEventModal.bind(this);
+        this.toggleQuestionModal = this.toggleQuestionModal.bind(this);
+        this.toggleOfferModal = this.toggleOfferModal.bind(this);
+    }
+
+    toggleQuestionModal() {
+        this.setState({
+            showQuestionModal: !this.state.showQuestionModal
+        });
+    }
+
+    toggleOfferModal() {
+        this.setState({
+            showOfferModal: !this.state.showOfferModal
+        });
+    }
+
+    toggleEventModal() {
+        this.setState({
+            showEventModal: !this.state.showEventModal
+        });
     }
 
     render() {
@@ -11,6 +43,7 @@ class Restaurant extends Component {
             return;
         }
         const restaurant = this.props.restaurants[0];
+        const { showQuestionModal, showEventModal, showOfferModal, question, event, offer } = this.state;
         return (
             <div className='zenzero-restaurant-detail'>
                 <div className='row'>
@@ -75,84 +108,34 @@ class Restaurant extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className='col-4 zenzero-restaurant-questions'>
-                        <h3>Questions &nbsp; <i className="far fa-arrow-alt-circle-down"></i></h3>
-                        <span className="badge badge-secondary">
-                            <i className="fas fa-plus-circle"></i>
-                            &nbsp;New Question
-                        </span>
-                        {
-                            restaurant.questions && restaurant.questions.map((question, index) => {
-                                return (
-                                    <div
-                                        key={`questions-${index}`}
-                                        className="row zenzero-restaurant-question">
-                                        <div className="card card-block">
-                                            {question.title}
-                                        </div>
-                                    </div>
-                                );
-                            })
-                        }
-                        {
-                            (!restaurant.questions || restaurant.questions.length == 0) && (
-                                <h6>No Questions found.</h6>
-                            )
-                        }
+                    <div className='col-4'>
+                        <Questions
+                            questions={restaurant.questions}
+                            toggleQuestionModal={this.toggleQuestionModal}
+                            selected={question}
+                            showQuestionModal={showQuestionModal}
+                        />
                     </div>
-                    
                 </div>
-                
-
-                <div className='row zenzero-restaurant-offers'>
+                <div className='row'>
                     <div className='col-12'>
-                        <h3>Offers &nbsp;<i className="far fa-arrow-alt-circle-right"></i></h3>
-                        <div className="row flex-row flex-nowrap">
-                            {
-                                restaurant.offers && restaurant.offers.map((offer, index) => {
-                                    return (
-                                        <div
-                                            key={`offers-${index}`}
-                                            className="col-2 text-center zenzero-restaurant-offer">
-                                            <div className="card card-block">
-                                                {offer.title}
-                                            </div>
-                                        </div>
-                                    );
-                                })
-                            }
-                            {
-                                (!restaurant.offers || restaurant.offers.length == 0) && (
-                                    <h6>No Offers found.</h6>
-                                )
-                            }
-                        </div>
+                        <Offers
+                            offers={restaurant.offers}
+                            toggleOfferModal={this.toggleOfferModal}
+                            selected={offer}
+                            showOfferModal={showOfferModal}
+                        />
                     </div>
                 </div>
                 
-                <div className='row zenzero-restaurant-events'>
+                <div className='row'>
                     <div className='col-12'>
-                        <h3>Events &nbsp;<i className="far fa-arrow-alt-circle-right"></i></h3>
-                        <div className="row flex-row flex-nowrap">
-                            {
-                                restaurant.events && restaurant.events.map((event, index) => {
-                                    return (
-                                        <div
-                                            key={`events-${index}`}
-                                            className="col-2 text-center zenzero-restaurant-event">
-                                            <div className="card card-block">
-                                                {event.title}
-                                            </div>
-                                        </div>
-                                    );
-                                })
-                            }
-                            {
-                                (!restaurant.events || restaurant.events.length == 0) && (
-                                    <h6 className='col-2 text-center'>No Events found.</h6>
-                                )
-                            }
-                        </div>
+                        <Events
+                            events={restaurant.events}
+                            toggleEventModal={this.toggleEventModal}
+                            selected={event}
+                            showEventModal={showEventModal}
+                        />
                     </div>
                 </div>
             </div>
