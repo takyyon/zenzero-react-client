@@ -32,7 +32,6 @@ class Profile extends Component {
         this.props.findOwnerInfoById(userId);
     }
 
-
     componentDidMount() {
         this.fetchUserData();
     }
@@ -55,6 +54,9 @@ class Profile extends Component {
                             buyer={buyer}
                             owner={owner}
                             openBuyer={this.openBuyer}
+                            findOfferById={this.props.findOfferById}
+                            findQuestionById={this.props.findQuestionById}
+                            findEventById={this.props.findEventById}
                         />
                     ) : (
                         <Owner
