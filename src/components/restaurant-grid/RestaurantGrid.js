@@ -15,6 +15,7 @@ class RestaurantGrid extends Component {
         const  { restaurants, term, location } = this.props;
 
         return (
+            
             <div className='zenzero-restaurant-grid'>
                 <div className='row'>
                     <span className="badge badge-warning">{`Term: ${term == '' ? 'NA': term}`}</span>

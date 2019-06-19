@@ -5,6 +5,7 @@ import Header from './../components/header/Header';
 import './index.scss';
 import LoginSignup from '../components/login-signup/LoginSignup';
 import RestaurantGrid from '../components/restaurant-grid/RestaurantGrid';
+import Restaurant from './Restaurant';
 
 class Zenzero extends Component {
     constructor(props){
@@ -82,6 +83,13 @@ class Zenzero extends Component {
                                     location={location}
                                 />
                             }/>
+                        <Route exact path='/restaurant/:restaurantId'
+                            render={(props) =>
+                                <Restaurant
+                                    restaurantId={props.match.params.restaurantId}
+                                />
+                            }
+                        />
                     </Router>
                 </div>
                 <div className='row zenzero-footer'>
