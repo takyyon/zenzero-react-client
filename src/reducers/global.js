@@ -40,7 +40,9 @@ const b = [
 const o = {
   id: 1,
   name: 'Krrish Mittal',
-  userId: 2
+  userId: 2,
+  email: 'krrishmittal@gmail.com',
+  isDual: true
 }
 const global = (state = {buyer: null, owner: o, restaurants: b}, action) => {
 

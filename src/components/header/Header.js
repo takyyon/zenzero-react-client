@@ -112,13 +112,17 @@ class Header extends Component {
                         <i className="fas fa-user-circle" onClick={(e) => this.toggleRightMenu(e)}></i>
                         <div className={`dropdown-menu zenzero-${showRightMenu ? 'show': 'hide'}`}>
                             { (buyer || owner) && 
-                                (<button className='dropdown-item' >Edit Account</button>)}
+                                (
+                                    <Link to='/edit-account'><button
+                                        className='dropdown-item'
+                                        id='account'
+                                    >Edit Account</button></Link>
+                                )}
                             { (buyer || owner) && 
                                 (
                                     <Link to={`/${buyer?'buyer':'owner'}/${this.getUserId()}`}><button
                                         className='dropdown-item'
                                         id='profile'
-                                        onClick={this.handleClick}
                                     >My Profile</button></Link>
                                 )}
                             { ((buyer && buyer.isDual) || (owner && owner.isDual)) && 
