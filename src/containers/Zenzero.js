@@ -86,7 +86,10 @@ class Zenzero extends Component {
                         <Route exact path='/restaurant/:restaurantId'
                             render={(props) =>
                                 <Restaurant
+                                    preventButtonAction={this.preventButtonAction}
                                     restaurantId={props.match.params.restaurantId}
+                                    buyer={buyer}
+                                    owner={owner}
                                 />
                             }
                         />

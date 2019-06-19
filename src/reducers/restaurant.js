@@ -75,11 +75,52 @@ const b =
         }
       ]
     };
-const restaurant = (state = {restaurants: [b]}, action) => {
+const restaurant = (state = {restaurant: b, offer: null, event: null, question: null}, action) => {
 
     switch (action.type) {
         case 'FIND_RESTAURANT_BY_ID':
-            return { restaurants: [action.restaurant]};
+            return {
+              restaurant: action.restaurant,
+              offer: null,
+              event: null,
+              question: null
+            };
+        case 'FIND_EVENT_BY_ID':
+            return {
+              restaurant: state.restaurant,
+              offer: null,
+              event: {
+                title: 'Kid\'s Party',
+                id: 1,
+                text: 'List Item 1\nList Item 2\nList Item 3',
+                start: '2019-04-02',
+                end: '2019-04-19',
+                restaurant: {
+                  id: 'E8RJkjfdcwgtyoPMjQ_Olg',
+                  name: 'Four Barrel Coffee'
+                },
+                going: true
+              },
+              question: null
+            };
+          case 'FIND_OFFER_BY_ID':
+              return {
+                restaurant: state.restaurant,
+                event: null,
+                offer: {
+                  code: 'DHF393B',
+                  id: 1,
+                  text: 'List Item 1\nList Item 2\nList Item 3',
+                  start: '2019-04-02',
+                  end: '2019-04-19',
+                  restaurant: {
+                    id: 'E8RJkjfdcwgtyoPMjQ_Olg',
+                    name: 'Four Barrel Coffee'
+                  },
+                  star: true
+                },
+                question: null
+              };
         default:
             return state;
     }

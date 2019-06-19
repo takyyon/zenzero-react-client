@@ -8,9 +8,8 @@ class Restaurant extends Component {
     constructor(props){
         super(props);
         this.state = {
-            question: null,
-            event: null,
-            offer: null,
+            edit: false,
+            add: false,
             showQuestionModal: false,
             showEventModal: false,
             showOfferModal: false,
@@ -18,32 +17,80 @@ class Restaurant extends Component {
         this.toggleEventModal = this.toggleEventModal.bind(this);
         this.toggleQuestionModal = this.toggleQuestionModal.bind(this);
         this.toggleOfferModal = this.toggleOfferModal.bind(this);
+        this.toggleEditAddModal = this.toggleEditAddModal.bind(this);
+        this.deleteEvent = this.deleteEvent.bind(this);
+        this.editEvent = this.editEvent.bind(this);
     }
 
-    toggleQuestionModal() {
+    componentDidMount(){
+        const { restaurantId } = this.props;
+    }
+
+    toggleQuestionModal(e, id=null) {
+        this.props.preventButtonAction(e);
+        if(id) {
+            this.props.findQuestionById(id);
+        }
         this.setState({
-            showQuestionModal: !this.state.showQuestionModal
+            showQuestionModal: !this.state.showQuestionModal,
+            edit: false,
+            add: false
         });
     }
 
-    toggleOfferModal() {
+    toggleOfferModal(e, id=null) {
+        this.props.preventButtonAction(e);
+        if(id) {
+            this.props.findOfferById(id);
+        }
         this.setState({
-            showOfferModal: !this.state.showOfferModal
+            showOfferModal: !this.state.showOfferModal,
+            edit: false,
+            add: false
         });
     }
 
-    toggleEventModal() {
+    toggleEventModal(e, id=null) {
+        this.props.preventButtonAction(e);
+        if(id) {
+            this.props.findEventById(id);
+        }
         this.setState({
-            showEventModal: !this.state.showEventModal
+            showEventModal: !this.state.showEventModal,
+            edit: false,
+            add: false
         });
+    }
+
+    toggleEditAddModal(e, edit=false, add=false){
+        this.props.preventButtonAction(e);
+        this.setState({
+            edit: edit,
+            add: add
+        });
+    }
+
+    editEvent(e, add, title, text, start, end) {
+        this.toggleEventModal(e);
+        /**
+         * Edit Event and refresh Restaurant Here.
+         */
+    }
+
+    deleteEvent(e) {
+        this.toggleEventModal(e);
+        /**
+         * Delete Event and Refresh Restaurant here.
+         */
     }
 
     render() {
-        if(!this.props.restaurants || this.props.restaurants.length == 0){
+        if(!this.props.restaurant){
             return;
         }
-        const restaurant = this.props.restaurants[0];
-        const { showQuestionModal, showEventModal, showOfferModal, question, event, offer } = this.state;
+        const restaurant = this.props.restaurant;
+        const { buyer, owner, question, offer, event } = this.props;
+        const { showQuestionModal, showEventModal, showOfferModal, add, edit} = this.state;
         return (
             <div className='zenzero-restaurant-detail'>
                 <div className='row'>
@@ -111,9 +158,13 @@ class Restaurant extends Component {
                     <div className='col-4'>
                         <Questions
                             questions={restaurant.questions}
-                            toggleQuestionModal={this.toggleQuestionModal}
+                            toggleModal={this.toggleQuestionModal}
+                            toggleEditAddModal={this.toggleEditAddModal}
                             selected={question}
-                            showQuestionModal={showQuestionModal}
+                            showModal={showQuestionModal}
+                            buyer={buyer}
+                            owner={owner}
+                            add={add}
                         />
                     </div>
                 </div>
@@ -121,9 +172,14 @@ class Restaurant extends Component {
                     <div className='col-12'>
                         <Offers
                             offers={restaurant.offers}
-                            toggleOfferModal={this.toggleOfferModal}
+                            toggleModal={this.toggleOfferModal}
+                            toggleEditAddModal={this.toggleEditAddModal}
                             selected={offer}
-                            showOfferModal={showOfferModal}
+                            showModal={showOfferModal}
+                            buyer={buyer}
+                            owner={owner}
+                            add={add}
+                            edit={edit}
                         />
                     </div>
                 </div>
@@ -132,12 +188,27 @@ class Restaurant extends Component {
                     <div className='col-12'>
                         <Events
                             events={restaurant.events}
-                            toggleEventModal={this.toggleEventModal}
+                            toggleModal={this.toggleEventModal}
+                            toggleEditAddModal={this.toggleEditAddModal}
                             selected={event}
-                            showEventModal={showEventModal}
+                            showModal={showEventModal}
+                            buyer={buyer}
+                            owner={owner}
+                            add={add}
+                            edit={edit}
+                            deleteEvent={this.deleteEvent}
+                            editEvent={this.editEvent}
                         />
                     </div>
                 </div>
+                {
+                    (showQuestionModal || showEventModal || showOfferModal) && (
+                        <div className='zenzero-mask'>
+                            &nbsp;
+                        </div>
+                    )
+                }
+                
             </div>
         );
     }

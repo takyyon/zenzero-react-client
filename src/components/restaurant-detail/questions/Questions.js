@@ -1,14 +1,18 @@
 import React from 'react';
 import './index.scss';
 
-const Questions = ({questions}) => {
+const Questions = ({ questions, toggleModal, selected, showModal, buyer, owner }) => {
     return (
         <div className='zenzero-restaurant-questions'>
             <h3>Questions &nbsp; <i className="far fa-arrow-alt-circle-down"></i></h3>
-            <span className="badge badge-secondary">
-                <i className="fas fa-plus-circle"></i>
-                &nbsp;New Question
-            </span>
+            {
+                buyer && (
+                    <span className="badge badge-secondary">
+                        <i className="fas fa-plus-circle"></i>
+                        &nbsp;New Question
+                    </span>
+                )
+            }
             {
                 questions && questions.map((question, index) => {
                     return (
