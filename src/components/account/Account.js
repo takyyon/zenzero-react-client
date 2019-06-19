@@ -26,9 +26,7 @@ class Account extends Component {
         if(target == 'password'){
             user.password = this.state.password;
         }
-        /**
-         * TODO: Save User
-         */
+        this.props.updateUser(user);
     }
 
     getUser() {
@@ -137,11 +135,14 @@ class Account extends Component {
                         user.isDual ? (
                             <h5>
                                 <span 
-                                    className="badge badge-info">Switch to {buyer? 'Owner': 'Buyer'}?</span>
+                                    className="badge badge-info"
+                                    onClick={(e) => this.props.switchUser(e)}>Switch to {buyer? 'Owner': 'Buyer'}?</span>
                             </h5>
                         ) : (
                             <h5>
-                                <span className="badge badge-dark">Register as {buyer? 'Owner': 'Buyer'}?</span>
+                                <span
+                                    className="badge badge-dark"
+                                    onClick={(e) => this.props.registerUserAsSecondType(e)}>Register as {buyer? 'Owner': 'Buyer'}?</span>
                             </h5>
                         )
                     }

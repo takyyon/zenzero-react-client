@@ -12,7 +12,6 @@ class LoginSignup extends Component {
             password: '',
             buyer: false
         };
-        this.handleClose = this.handleClose.bind(this);
         this.toggleLoginState = this.toggleLoginState.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleOnChange = this.handleOnChange.bind(this);
@@ -50,21 +49,9 @@ class LoginSignup extends Component {
     }
 
     handleSubmit(e) {
-        if(e){
-            e.preventDefault();
-            e.stopPropagation();
-        }
         const { email, name, password, buyer, login} = this.state;
         this.props.handleSubmit(email, password, buyer, name, login);
-        this.props.close();
-    }
-
-    handleClose(e){
-        if(e){
-            e.preventDefault();
-            e.stopPropagation();
-        }
-        this.props.close();
+        this.props.close(e);
     }
 
     toggleLoginState(e, login=false){
@@ -87,7 +74,7 @@ class LoginSignup extends Component {
                         <div className="modal-header">
                             <h5 className="modal-title">{`${login? 'Welcome To Zenzero': 'Become a part of Zenzero Family'}`}</h5>
                             <i className="fas fa-times zenzero-close-modal"
-                                onClick={this.handleClose}></i>
+                                onClick={(e) => this.props.close(e)}></i>
                         </div>
                         <div className="modal-body">
                             {
