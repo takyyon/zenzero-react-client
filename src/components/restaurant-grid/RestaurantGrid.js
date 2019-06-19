@@ -12,24 +12,30 @@ class RestaurantGrid extends Component {
 
     
     render() {
-        const  { restaurants } = this.props;
+        const  { restaurants, term, location } = this.props;
 
         return (
             <div className='zenzero-restaurant-grid'>
-                {
-                    restaurants && restaurants.map((restaurant, index) => {
-                        return (
-                            <RestaurantCard
-                                restaurant={restaurant}
-                                key={`restaurant-${index}`}
-                            />);
-                    })
-                }
-                {
-                    (!restaurants || (restaurants && restaurants.length == 0)) && (
-                        <span>No Restaurants Found for your search</span>
-                    )
-                }
+                <div className='row'>
+                    <span className="badge badge-warning">{`Term: ${term == '' ? 'NA': term}`}</span>
+                    <span className="badge badge-success">{`Location: ${location}`}</span>
+                </div>
+                <div className='row zenzero-grid'>
+                    {
+                        restaurants && restaurants.map((restaurant, index) => {
+                            return (
+                                <RestaurantCard
+                                    restaurant={restaurant}
+                                    key={`restaurant-${index}`}
+                                />);
+                        })
+                    }
+                    {
+                        (!restaurants || (restaurants && restaurants.length == 0)) && (
+                            <span className='zenzero-message'>No Restaurants Found for your search</span>
+                        )
+                    }
+                </div>
             </div>
         );
     }

@@ -1,1 +1,16 @@
 @import './../../utility/scss/commons';
+
+.zenzero-restaurant-grid {
+    .row {
+        .badge {
+            margin-right: 10px;
+        }
+    }
+    .zenzero-grid {
+        margin-top: 20px;
+        .zenzero-message {
+            font-size: 22px;
+            font-style: italic;
+        }
+    }
+}

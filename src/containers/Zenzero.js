@@ -11,11 +11,22 @@ class Zenzero extends Component {
         super(props);
         this.state = {
             hideRightMenu: false,
-            showLoginPopup: false
+            showLoginPopup: false,
+            term: '',
+            location: 'Boston, MA'
         };
         this.toggleHideRightMenu = this.toggleHideRightMenu.bind(this);
         this.toggleLoginPopup = this.toggleLoginPopup.bind(this);
         this.loginOrSignup = this.loginOrSignup.bind(this);
+        this.findRestaurants = this.findRestaurants.bind(this);
+        this.preventButtonAction = this.preventButtonAction.bind(this);
+    }
+
+    preventButtonAction(e) {
+        if(e){
+            e.preventDefault();
+            e.stopPropagation();
+        }
     }
 
     loginOrSignup(email, password, buyer, name='', login=true) {
@@ -30,6 +41,16 @@ class Zenzero extends Component {
         });
     }
 
+    findRestaurants(term, location){
+        this.setState({
+            term: term,
+            location: location
+        });
+        /**
+         * Search all restaurants according to the term/location
+         */
+    }
+
     toggleLoginPopup(flag=false) {
         this.setState({
             showLoginPopup: flag
@@ -37,7 +58,7 @@ class Zenzero extends Component {
     }
 
     render() {
-        const { hideRightMenu, showLoginPopup } = this.state;
+        const { hideRightMenu, showLoginPopup, term, location } = this.state;
         const { buyer, owner, restaurants } = this.props;
 
         return (
@@ -48,6 +69,8 @@ class Zenzero extends Component {
                     toggleLoginPopup={this.toggleLoginPopup}
                     buyer={buyer}
                     owner={owner}
+                    findRestaurants={this.findRestaurants}
+                    preventButtonAction={this.preventButtonAction}
                 />
                 <div className='row zenzero-body'>
                     <Router>
@@ -55,6 +78,8 @@ class Zenzero extends Component {
                             render={() => 
                                 <RestaurantGrid
                                     restaurants={restaurants}
+                                    term={term}
+                                    location={location}
                                 />
                             }/>
                     </Router>
