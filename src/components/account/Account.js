@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import './index.scss';
 
 class Account extends Component {
@@ -56,6 +57,9 @@ class Account extends Component {
     render() {
         const { buyer, owner, preventButtonAction } = this.props;
         const user = this.getUser();
+        if(user == null){
+            return <Redirect to='/'/>;
+        }
         return (
             <div className='col-12 zenzero-account'>
                 <h3>{`Edit Account (${buyer?'Buyer': 'Owner'})`}</h3>

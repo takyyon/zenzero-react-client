@@ -7,7 +7,6 @@ class RestaurantService {
     static getInstance() {
         if(RestaurantService.instance == null) {
             RestaurantService.instance = new RestaurantService();
-            RestaurantService.instance.init();
         }
         return RestaurantService.instance;
     }

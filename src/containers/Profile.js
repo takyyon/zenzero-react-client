@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Profile from '../components/profile/Profile';
-import RestaurantService from '../services/restaurant';
+import RestaurantService from '../services/Restaurant';
 import UserService from '../services/User';
 
 const stateToPropertyMapper = state => ({

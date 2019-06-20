@@ -7,7 +7,6 @@ class UserService {
     static getInstance() {
         if(UserService.instance == null) {
             UserService.instance = new UserService();
-            UserService.instance.init();
         }
         return UserService.instance;
     }

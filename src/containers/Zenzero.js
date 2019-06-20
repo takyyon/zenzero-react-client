@@ -25,7 +25,7 @@ class Zenzero extends Component {
         this.preventButtonAction = this.preventButtonAction.bind(this);
         this.becomeOwner = this.becomeOwner.bind(this);
         this.updateUser = this.updateUser.bind(this);
-        this.registerUserAsSecondType = this.registerUserAsSecondType.bbind(this);
+        this.registerUserAsSecondType = this.registerUserAsSecondType.bind(this);
         this.switchUser = this.switchUser.bind(this);
         this.logout = this.logout.bind(this);
     }
