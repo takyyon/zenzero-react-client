@@ -1,7 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Profile from '../components/profile/Profile';
-
+import RestaurantService from '../services/restaurant';
+import UserService from '../services/User';
 
 const stateToPropertyMapper = state => ({
     userInfo: state.profile.userInfo,
@@ -10,24 +11,37 @@ const stateToPropertyMapper = state => ({
     event: state.profile.event,
 });
 
+const restaurantService = RestaurantService.getInstance();
+const userService = UserService.getInstance();
+
 const findBuyerInfoById = (dispatch, id) => {
-    dispatch({type: 'FIND_BUYER_INFO_ID', id: id});
+    userService
+        .findBuyerInfoById(id)
+        .then((user) => dispatch({type: 'FIND_BUYER_INFO_ID', userInfo: user}))
 };
 
 const findOwnerInfoById = (dispatch, id) => {
-    dispatch({type: 'FIND_OWNER_INFO_ID', id: id});
+    userService
+        .findOwnerInfoById(id)
+        .then((user) => dispatch({type: 'FIND_OWNER_INFO_ID', userInfo: user}))
 };
 
 const findEventById = (dispatch, id) => {
-    dispatch({type: 'FIND_EVENT_BY_ID', id: id});
+    restaurantService
+        .findEventById(id)
+        .then((event) => dispatch({type: 'FIND_EVENT_BY_ID', event: event}))
 };
 
 const findQuestionById = (dispatch, id) => {
-    dispatch({type: 'FIND_QUESTION_BY_ID', id: id});
+    restaurantService
+        .findQuestionById(id)
+        .then((question) => dispatch({type: 'FIND_QUESTION_BY_ID', question: question}))
 };
 
 const findOfferById = (dispatch, id) => {
-    dispatch({type: 'FIND_OFFER_BY_ID', id: id});
+    restaurantService
+        .findOfferById(id)
+        .then((offer) => dispatch({type: 'FIND_OFFER_BY_ID', offer: offer}))
 };
 
 const dispatchToPropertyMapper = dispatch => ({

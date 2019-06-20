@@ -29,6 +29,18 @@ class Restaurant extends Component {
         this.openBuyer = this.openBuyer.bind(this);
         this.openOwner = this.openOwner.bind(this);
         this.fetchRestaurantData = this.fetchRestaurantData.bind(this);
+        this.likOffer = this.likOffer.bind(this);
+        this.likeEvent = this.likeEvent.bind(this);
+    }
+
+    likOffer(e, id) {
+        this.props.preventButtonAction(e);
+        this.props.likeOffer(id, this.state.restaurantId);
+    }
+
+    likeEvent(e, id) {
+        this.props.preventButtonAction(e);
+        this.props.likeEvent(id, this.state.restaurantId);
     }
 
     componentDidUpdate(prevProps) {
@@ -46,6 +58,7 @@ class Restaurant extends Component {
             showOfferModal: false
         });
         const { restaurantId } = this.props;
+        this.props.findRestaurantById(restaurantId);
     }
 
     componentDidMount(){
@@ -116,6 +129,18 @@ class Restaurant extends Component {
         /**
          * Edit Event and refresh Restaurant Here.
          */
+        const { event, restaurantId } = this.props;
+        if(add) {
+            this.props.addEvent(title, text, start, end, restaurantId);
+            return;
+        }
+        if(event){
+            event.title = title;
+            event.text = text;
+            event.start = start;
+            event.end = end;
+            this.props.editEvent(event, restaurantId);
+        }
     }
 
     deleteEvent(e) {
@@ -123,6 +148,10 @@ class Restaurant extends Component {
         /**
          * Delete Event and Refresh Restaurant here.
          */
+        const { restaurantId, event } = this.props;
+        if(event) {
+            this.props.deleteEvent(event.id, restaurantId);
+        }
     }
 
     editOffer(e, add, code, text, start, end) {
@@ -130,6 +159,18 @@ class Restaurant extends Component {
         /**
          * Edit Offer and refresh Restaurant Here.
          */
+        const { offer, restaurantId } = this.props;
+        if(add) {
+            this.props.addOffer(code, text, start, end, restaurantId);
+            return;
+        }
+        if(offer){
+            offer.code = code;
+            offer.text = text;
+            offer.start = start;
+            offer.end = end;
+            this.props.editOffer(offer, restaurantId);
+        }
     }
 
     deleteOffer(e) {
@@ -137,6 +178,10 @@ class Restaurant extends Component {
         /**
          * Delete Offer and Refresh Restaurant here.
          */
+        const { restaurantId, offer } = this.props;
+        if(offer) {
+            this.props.deleteOffer(offer.id, restaurantId);
+        }
     }
 
     addQuestion(e, question) {
@@ -144,6 +189,7 @@ class Restaurant extends Component {
         /**
          * Add New Question Here
          */
+        this.props.addQuesiton(question, this.props.restaurantId);
     }
 
     addComment(e, comment) {
@@ -151,6 +197,10 @@ class Restaurant extends Component {
         /**
          * Add Comment to question and refresh
          */
+        const { restaurantId, question } = this.props;
+        if(question) {
+            this.props.addComment(comment, question.id, restaurantId);
+        }
     }
 
     render() {
@@ -269,6 +319,7 @@ class Restaurant extends Component {
                             deleteOffer={this.deleteOffer}
                             editOffer={this.editOffer}
                             openRestaurant={this.openRestaurant}
+                            likOffer={this.likOffer}
                         />
                     </div>
                 </div>
@@ -288,6 +339,7 @@ class Restaurant extends Component {
                             deleteEvent={this.deleteEvent}
                             editEvent={this.editEvent}
                             openRestaurant={this.openRestaurant}
+                            likeEvent={this.likeEvent}
                         />
                     </div>
                 </div>

@@ -25,21 +25,39 @@ class Zenzero extends Component {
         this.preventButtonAction = this.preventButtonAction.bind(this);
         this.becomeOwner = this.becomeOwner.bind(this);
         this.updateUser = this.updateUser.bind(this);
+        this.registerUserAsSecondType = this.registerUserAsSecondType.bbind(this);
+        this.switchUser = this.switchUser.bind(this);
+        this.logout = this.logout.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.fetchUserInSession();
     }
 
     updateUser(newUser) {
-
+        this.props.updateUser(newUser);
     }
 
-    registerUserAsSecondType() {
-        
+    registerUserAsSecondType(e) {
+        this.preventButtonAction(e);
+        this.props.registerUserAsSecondType(this.props.buyer ? 'buyer': 'owner');
+    }
+
+    switchUser(e) {
+        this.preventButtonAction(e);
+        this.props.switchUser();
+    }
+
+    logout(e) {
+        this.preventButtonAction(e);
     }
 
     becomeOwner(e, id) {
+        this.preventButtonAction(e);
         /**
-         * Own a restaurant
+         * TODO: Own a restaurant
          */
-        
+        this.props.ownRestaurant(id, this.state.term, this.state.location);
     }
 
     preventButtonAction(e) {
@@ -53,6 +71,19 @@ class Zenzero extends Component {
         /**
          * Signup or Login here
          */
+        if(login) {
+            if(buyer){
+                this.props.loginBuyer(email, password);
+                return;
+            }
+            this.props.loginOwner(email, password);
+            return;
+        }
+        if(this.buyer) {
+            this.props.registerBuyer(name, email, password);
+            return;
+        }
+        this.props.registerOwner(name, email, password);
     }
 
     toggleHideRightMenu(flag=false) {
@@ -69,9 +100,11 @@ class Zenzero extends Component {
         /**
          * Search all restaurants according to the term/location
          */
+        this.props.findRestaurantsByTermLocation(term, location);
     }
 
-    toggleLoginPopup(flag=false) {
+    toggleLoginPopup(e, flag=false) {
+        this.preventButtonAction(e);
         this.setState({
             showLoginPopup: flag
         });
@@ -92,6 +125,8 @@ class Zenzero extends Component {
                         owner={owner}
                         findRestaurants={this.findRestaurants}
                         preventButtonAction={this.preventButtonAction}
+                        switchUser={this.switchUser}
+                        logout={this.logout}
                     />
                     <div className='row zenzero-body'>
                         
@@ -149,6 +184,9 @@ class Zenzero extends Component {
                                     preventButtonAction={this.preventButtonAction}
                                     buyer={buyer}
                                     owner={owner}
+                                    updateUser={this.updateUser}
+                                    registerUserAsSecondType={this.registerUserAsSecondType}
+                                    switchUser={this.switchUser}
                                 />
                             }
                         />

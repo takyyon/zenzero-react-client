@@ -4,7 +4,7 @@ import ViewModal from './modals/ViewModal';
 import EditModal from './modals/EditModal';
 
 const Offers = ({offers, toggleModal, toggleEditAddModal, selected, showModal, 
-    buyer, owner, add, edit, deleteOffer, editOffer, openRestaurant  }) => {
+    buyer, owner, add, edit, deleteOffer, editOffer, openRestaurant, likOffer, profilePage  }) => {
     return (
         <div className='zenzero-restaurant-offers'>
             <h3>Offers &nbsp;<i className="far fa-arrow-alt-circle-right"></i></h3>
@@ -54,6 +54,7 @@ const Offers = ({offers, toggleModal, toggleEditAddModal, selected, showModal,
                         />
                     ): (
                         <ViewModal
+                            profilePage={profilePage}
                             offer={selected}
                             handleClose={toggleModal}
                             toggleEditAddModal={toggleEditAddModal}
@@ -61,6 +62,7 @@ const Offers = ({offers, toggleModal, toggleEditAddModal, selected, showModal,
                             buyer={buyer}
                             owner={owner}
                             openRestaurant={openRestaurant}
+                            likOffer={likOffer}
                         />
                     )
                 )

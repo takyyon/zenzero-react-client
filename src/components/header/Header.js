@@ -126,13 +126,19 @@ class Header extends Component {
                                     >My Profile</button></Link>
                                 )}
                             { ((buyer && buyer.isDual) || (owner && owner.isDual)) && 
-                                (<button className='dropdown-item' >Switch Role</button>)}
+                                (
+                                    <button
+                                        className='dropdown-item'
+                                        onClick={(e) => this.props.switchUser(e)}>Switch Role</button>)}
                             { (buyer || owner) && 
                                 (<div className="dropdown-divider"></div>)}
                             { (buyer || owner) && 
-                                (<button className='dropdown-item' >Log out</button>)}
+                                (
+                                    <button
+                                        className='dropdown-item'
+                                        onClick={(e) => this.props.logout(e)}>Log out</button>)}
                             { (!buyer && !owner) && 
-                                (<button className='dropdown-item' onClick={() => this.props.toggleLoginPopup(true)}>
+                                (<button className='dropdown-item' onClick={(e) => this.props.toggleLoginPopup(e, true)}>
                                     Login / Signup</button>)}
                         </div>
                     </span>

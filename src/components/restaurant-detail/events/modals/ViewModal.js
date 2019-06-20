@@ -2,7 +2,7 @@ import React from 'react';
 import './../index.scss';
 
 const ViewModal = ({ event, handleClose, toggleEditAddModal,
-        deleteEvent, buyer, owner, openRestaurant }) => {
+        deleteEvent, buyer, owner, openRestaurant, likeEvent, profilePage }) => {
     return (
         <div className='zenzero-event-modal'>
             <div className="modal fade show" id="exampleModalLong" tabIndex="-1" role="dialog">
@@ -12,7 +12,13 @@ const ViewModal = ({ event, handleClose, toggleEditAddModal,
                             <h4 className="modal-title">
                                 {event.title}
                                 &nbsp;
-                                {buyer && (<i class={`fas fa-star ${event.going?'zenzero-highlight':''}`}></i>)}
+                                {buyer && !profilePage && (
+                                    <i class={`fas fa-star ${event.going?'zenzero-highlight':''}`}
+                                        onClick={(e) => {
+                                            likeEvent && likeEvent(e, event.id)
+                                        }}
+                                    ></i>
+                                )}
                             </h4>
                             <i className="fas fa-times zenzero-close-modal"
                                 onClick={(e) => handleClose(e)}></i>
