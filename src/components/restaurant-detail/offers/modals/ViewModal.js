@@ -2,7 +2,7 @@ import React from 'react';
 import './../index.scss';
 
 const ViewModal = ({ offer, handleClose, toggleEditAddModal,
-        deleteOffer, buyer, owner, openRestaurant, likOffer }) => {
+        deleteOffer, buyer, owner, openRestaurant, likOffer, profilePage }) => {
     return (
         <div className='zenzero-offer-modal'>
             <div className="modal fade show" id="exampleModalLong" tabIndex="-1" role="dialog">
@@ -12,7 +12,7 @@ const ViewModal = ({ offer, handleClose, toggleEditAddModal,
                             <h4 className="modal-title">
                                 {offer.code}
                                 &nbsp;
-                                {buyer && (
+                                {buyer && !profilePage && (
                                     <i class={`fas fa-star ${offer.star?'zenzero-highlight':''}`}
                                         onClick={(e) => likOffer && likOffer(e, offer.id)}
                                     ></i>)}

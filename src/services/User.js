@@ -56,6 +56,22 @@ class UserService {
             });
     }
 
+    findBuyerInfoById = (id) => {
+        const url = `${URL}user/${id}/buyer/`; 
+        return fetch(url)
+            .then(function(response) {
+                return response.json();
+            });
+    }
+
+    findOwnerInfoById = (id) => {
+        const url = `${URL}user/${id}/owner/`; 
+        return fetch(url)
+            .then(function(response) {
+                return response.json();
+            });
+    }
+
     registerUserAsSecondType = (type)  => {
         const url = `${URL}user/dual-register/${type}/`; 
         return fetch(url)
