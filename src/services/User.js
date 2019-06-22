@@ -115,6 +115,7 @@ class UserService extends ConnectionService{
     }
 
     logout() {
+        this.removeToken();
         const url = `${URL}users/logout/`;
         const data = {
             headers: this.getAuthorizationHeader()

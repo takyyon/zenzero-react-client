@@ -53,6 +53,7 @@ class Zenzero extends Component {
 
     logout(e) {
         this.preventButtonAction(e);
+        this.props.logout();
     }
 
     becomeOwner(e, id) {

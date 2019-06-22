@@ -11,7 +11,7 @@ class ConnectionService {
         return localStorage.getItem('token');
     }
 
-    logout() {
+    removeToken() {
         localStorage.removeItem('token');
     }
 

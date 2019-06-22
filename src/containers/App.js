@@ -83,7 +83,7 @@ const registerUserAsSecondType = (dispatch, type) => {
 const logout = (dispatch) => {
     userService
         .logout()
-        .then((res) => dispatch({type: 'LOGOUT_USER'}))
+        .then((res) => fetchUserInSession(dispatch))
 };
 
 const switchUser = (dispatch) => {
