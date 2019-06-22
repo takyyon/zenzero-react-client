@@ -103,7 +103,11 @@ class UserService extends ConnectionService{
 
     registerUserAsSecondType = (type)  => {
         const url = `${URL}users/${type}/register`; 
-        return fetch(url)
+        const data = {
+            
+            headers: this.getAuthorizationHeader()
+        }
+        return fetch(url, data)
             .then(function(response) {
                 return response;
             });
