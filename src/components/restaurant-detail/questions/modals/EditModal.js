@@ -5,22 +5,22 @@ class EditModal extends Component {
     constructor(props){
         super(props);
         this.state = {
-            question: ''
+            text: ''
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleOnChange = this.handleOnChange.bind(this);
     }
 
     handleOnChange(e) {
-        if(e.target.id == 'question') {
+        if(e.target.id == 'text') {
             this.setState({
-                question: e.target.value
+                text: e.target.value
             });
         }
     }
 
     handleSubmit(e) {
-        this.props.addQuestion(e, this.state.question);
+        this.props.addQuestion(e, this.state.text);
     }
 
     render() {
@@ -43,7 +43,7 @@ class EditModal extends Component {
                                 <div className='form-group'>
                                     <textarea
                                         className='form-control zenzero-input-text'
-                                        id='comment'
+                                        id='text'
                                         rows='3'
                                         placeholder="Your Question"
                                         onChange={this.handleOnChange}

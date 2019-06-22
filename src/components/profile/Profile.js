@@ -8,11 +8,18 @@ class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
         };
         this.openBuyer = this.openBuyer.bind(this);
         this.fetchUserData = this.fetchUserData.bind(this);
         this.openRestaurant = this.openRestaurant.bind(this);
+        this.deRegister = this.deRegister.bind(this);
+        this.fetchUserData();
+    }
+
+    deRegister(e, id) {
+        this.props.preventButtonAction(e);
+
+        this.props.deRegister(id, this.props.userId);
     }
 
     openBuyer(id) {
@@ -20,20 +27,21 @@ class Profile extends Component {
     }
 
     openRestaurant(id) {
-        this.props.history.push(`restaurant/${id}`);
+        this.props.history.push(`/restaurant/${id}`);
     }
 
     componentDidUpdate(prevProps) {
-        if((prevProps.userId != this.props.userId) ||
-            prevProps.userId == this.props.userId &&
-            prevProps.buyerProfile != this.props.buyerProfile) {
+        if(prevProps.userId &&  (
+            (prevProps.userId != this.props.userId) ||
+            (prevProps.buyer != this.props.buyer))) {
             this.fetchUserData();
         }
     }
 
     fetchUserData() {
-        const { buyerProfile, userId } = this.props;
-        if(buyerProfile) {
+        const { buyer, userId } = this.props;
+        
+        if(buyer) {
             this.props.findBuyerInfoById(userId);
             return;
         }
@@ -45,33 +53,46 @@ class Profile extends Component {
     }
 
     render() {
-        const { buyer, owner, userId, userInfo, buyerProfile, preventButtonAction, history } = this.props;
-        if(owner && owner.userId != userId){
-            return <Redirect to='/'/>;
-        }
         
+        const { user, buyer, userId, userInfo,
+            preventButtonAction, history, question, offer, event } = this.props;
+        
+        if(!userInfo) {
+            return null;
+        }
+
         return (
             <div className='col-12'>
-                <h3><span className="badge badge-success">{userInfo.name}</span></h3>
+                <h3>
+                    <span className="badge badge-success">{userInfo.name}</span>
+                    &nbsp;&nbsp;
+                    <span className="badge badge-info zenzero-profile-user">{buyer? 'Buyer': 'Owner'}</span>
+                </h3>
+                
+
                 {
-                    buyerProfile ? (
+                    (buyer) ? (
                         <Buyer
                             offers={userInfo.offers}
                             events={userInfo.events}
                             questions={userInfo.questions}
-                            buyer={buyer}
-                            owner={owner}
+                            user={user}
+                            question={question}
+                            event={event}
+                            offer={offer}
                             openBuyer={this.openBuyer}
                             openRestaurant={this.openRestaurant}
                             findOfferById={this.props.findOfferById}
                             findQuestionById={this.props.findQuestionById}
                             findEventById={this.props.findEventById}
+                            preventButtonAction={preventButtonAction}
                         />
                     ) : (
                         <RestaurantGrid
                             restaurants={userInfo.restaurants}
-                            buyer={buyer}
-                            owner={owner}
+                            user={user}
+                            userId={userId}
+                            deRegister={this.deRegister}
                             history={history}
                             preventButtonAction={preventButtonAction}
                             profile={true}

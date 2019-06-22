@@ -6,77 +6,101 @@ import UserService from '../services/User';
 
 
 const stateToPropertyMapper = state => ({
-    buyer: state.global.buyer,
-    owner: state.global.owner,
+    user: state.global.user,
     restaurants: state.global.restaurants
 });
 
 const restaurantService = RestaurantService.getInstance();
 const userService = UserService.getInstance();
 
-const findRestaurantsByTermLocation = ({dispatch, term, location}) => {
+const findRestaurantsByTermLocation = (dispatch, term, location) => {
     restaurantService
         .findRestaurantsByTermLocation(term, location)
-        .then((restaurants) => dispatch({type: 'FIND_RESTAURANT_BY_TERM_LOCATION', restaurants: restaurants}))
+        .then((restaurants) => {
+            dispatch({type: 'FIND_RESTAURANT_BY_TERM_LOCATION', restaurants: restaurants})})
 };
 
-const loginBuyer = ({dispatch, email, password}) => {
-    userService
-        .loginBuyer(email, password)
-        .then((user) => dispatch({ type:'LOGIN_BUYER', buyer: user}))
-};
-
-const loginOwner = ({dispatch, email, password}) => {
-    userService
-        .loginOwner(email, password)
-        .then((user) => dispatch({ type:'LOGIN_OWNER', owner: user}))
-};
-
-const registerOwner = ({dispatch, name, email, password}) => {
-    userService
-        .registerUser(name, email, password, 'owner')
-        .then((user) => dispatch({ type:'REGISTER_OWNER', owner: user}))
-};
-
-const registerBuyer = ({dispatch, name, email, password}) => {
-    userService
-        .registerUser(name, email, password, 'buyer')
-        .then((user) => dispatch({ type:'REGISTER_BUYER', buyer: user}))
-};
-
-const fetchUserInSession = ({dispatch}) => {
-    userService
-        .fetchUser()
-        .then((user) => dispatch({ type:'FETCH_USER', buyer: user.buyer, owner: user.owner}))
-};
-
-const updateUser = ({dispatch, newUser}) => {
-    userService
-        .updateUser(newUser)
-        .then((response) => fetchUserInSession(dispatch))
+const saveInLocalStorage = (dispatch, response) => {    
+    if(response.ok) {
+        response.json()
+            .then((res) => {
+                userService.setToken(res.token);
+                return fetchUserInSession(dispatch);
+            });
+    }
 }
 
-const registerUserAsSecondType = ({dispatch, type}) => {
+const loginBuyer = (dispatch, email, password) => {
     userService
-        .registerUserAsSecondType(type)
-        .then((response) => fetchUserInSession(dispatch))
+        .loginBuyer(email, password)
+        .then((response) => saveInLocalStorage(dispatch, response))
 };
 
-const logout = ({dispatch}) => {
+const loginOwner = (dispatch, email, password) => {
+    userService
+        .loginOwner(email, password)
+        .then((response) => saveInLocalStorage(dispatch, response))
+};
+
+const registerOwner = (dispatch, name, email, password) => {
+    userService
+        .registerUser(name, email, password, 'owner')
+        .then((response) => saveInLocalStorage(dispatch, response))
+};
+
+const registerBuyer = (dispatch, name, email, password) => {
+    userService
+        .registerUser(name, email, password, 'buyer')
+        .then((response) => saveInLocalStorage(dispatch, response))
+};
+
+const fetchUserInSession = (dispatch) => {
+    userService
+        .fetchUser()
+        .then((response) => {
+            if(response.ok) {
+                response.json().then((user) => {
+                    dispatch({ type:'FETCH_USER', user: user});
+                });
+            }else {
+                dispatch({ type: 'FETCH_USER', user: null});
+            }
+        });
+};
+
+const updateUser = (dispatch, newUser) => {
+    userService
+        .updateUser(newUser)
+        .then((response) => saveInLocalStorage(dispatch, response))
+}
+
+const registerUserAsSecondType = (dispatch, type) => {
+    userService
+        .registerUserAsSecondType(type)
+        .then((response) => saveInLocalStorage(dispatch, response))
+};
+
+const logout = (dispatch) => {
     userService
         .logout()
         .then((res) => dispatch({type: 'LOGOUT_USER'}))
 };
 
-const switchUser = ({dispatch}) => {
+const switchUser = (dispatch) => {
     userService
         .switchUser()
-        .then((res) => fetchUserInSession(dispatch))
+        .then((response) => saveInLocalStorage(dispatch, response))
 };
 
-const ownRestaurant = ({dispatch, id, term, location}) => {
+const ownRestaurant = (dispatch, id, term, location) => {
     restaurantService
         .ownRestaurant(id, term, location)
+        .then((response) => findRestaurantsByTermLocation(dispatch, term, location))
+};
+
+const deRegister = (dispatch, id, term, location) => {
+    restaurantService
+        .deRegister(id, term, location)
         .then((response) => findRestaurantsByTermLocation(dispatch, term, location))
 };
 
@@ -92,7 +116,8 @@ const dispatchToPropertyMapper = dispatch => ({
     registerUserAsSecondType: (type) => registerUserAsSecondType(dispatch, type),
     logout: () => logout(dispatch),
     switchUser: () => switchUser(dispatch),
-    ownRestaurant: (id, term, location) => ownRestaurant(dispatch, term, location)
+    ownRestaurant: (id, term, location) => ownRestaurant(dispatch, id, term, location),
+    deRegister: (id, term, location) => deRegister(dispatch, id, term, location),
 });
 
 

@@ -54,7 +54,7 @@ const deleteOffer = (dispatch, id, restaurantId) => {
 const addComment = (dispatch, comment, id, restaurantId) => {
     restaurantService
         .addComment(id, comment)
-        .then((response) => findRestaurantById(dispatch, restaurantId))
+        .then((response) => findQuestionById(dispatch, id))
 }; 
 
 const addQuesiton = (dispatch, question, restaurantId) => {

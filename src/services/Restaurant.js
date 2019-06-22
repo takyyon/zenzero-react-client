@@ -1,6 +1,7 @@
 import {URL} from './../utility/constants';
+import ConnectionService from './ConnectionService';
 
-class RestaurantService {
+class RestaurantService extends ConnectionService {
 
     static instance = null;
 
@@ -21,14 +22,31 @@ class RestaurantService {
 
     ownRestaurant = (id) => {
         const url = `${URL}restaurants/${id}/register/`;
-        return fetch(url)
+        const data = {
+            method: 'post',
+            headers: this.getAuthorizationHeader()
+        }
+        return fetch(url, data)
             .then(function(response) {
-                return response.json();
+                return response;
+            }); 
+    }
+
+    deRegister = (id) => {
+        const url = `${URL}restaurants/${id}/de-register/`;
+        const data = {
+            method: 'post',
+            headers: this.getAuthorizationHeader()
+        }
+        return fetch(url, data)
+            .then(function(response) {
+                return response;
             }); 
     }
 
     findRestaurantById = (id) => {
         const url = `${URL}restaurants/${id}/`;
+        
         return fetch(url)
             .then(function(response) {
                 return response.json();
@@ -36,7 +54,7 @@ class RestaurantService {
     }
 
     findEventById = (id) => {
-        const url = `${URL}restaurants/event/${id}/`;
+        const url = `${URL}events/${id}/`;
         return fetch(url)
             .then(function(response) {
                 return response.json();
@@ -44,18 +62,19 @@ class RestaurantService {
     }
 
     deleteEvent = (id) => {
-        const url = `${URL}restaurants/event/${id}/`;
+        const url = `${URL}events/${id}/`;
         const data = {
             method: 'delete',
+            headers: this.getAuthorizationHeader()
         }
         return fetch(url, data)
             .then(function(response) {
-                return response.json();
+                return response;
             }); 
     }
 
     findQuestionById = (id) => {
-        const url = `${URL}restaurants/question/${id}/`;
+        const url = `${URL}questions/${id}/`;
         return fetch(url)
             .then(function(response) {
                 return response.json();
@@ -63,7 +82,7 @@ class RestaurantService {
     }
 
     findOfferById = (id) => {
-        const url = `${URL}restaurants/offer/${id}/`;
+        const url = `${URL}offers/${id}/`;
         return fetch(url)
             .then(function(response) {
                 return response.json();
@@ -71,52 +90,50 @@ class RestaurantService {
     }
 
     deleteOffer = (id) => {
-        const url = `${URL}restaurants/offer/${id}/`;
+        const url = `${URL}offers/${id}/`;
         const data = {
             method: 'delete',
+            headers: this.getAuthorizationHeader()
         }
         return fetch(url, data)
             .then(function(response) {
-                return response.json();
+                return response;
             }); 
     }
 
     addComment = (id, comment) => {
-        const url = `${URL}restaurants/question/${id}/comment/`;
+        const url = `${URL}questions/${id}/comments/`;
         const data = {
             method: 'post',
             body: JSON.stringify({
-                comment: comment
+                text: comment
             }),
-            headers: {
-                'content-type': 'application/json'
-            }
+            headers: this.getAuthorizationHeader()
         }
         return fetch(url, data)
             .then(function(response) {
-                return response.json();
+                return response;
             });
     }
 
     addQuesiton = (question, restaurantId) => {
-        const url = `${URL}restaurants/${restaurantId}/question/`;
+        const url = `${URL}restaurants/${restaurantId}/questions/`;
         const data = {
             method: 'post',
             body: JSON.stringify({
-                question: question
+                text: question
             }),
-            headers: {
-                'content-type': 'application/json'
-            }
+            headers: this.getAuthorizationHeader()
         }
         return fetch(url, data)
             .then(function(response) {
-                return response.json();
+                return response;
             });
     }
 
     addOffer = (code, text, start, end, restaurantId) => {
-        const url = `${URL}restaurants/${restaurantId}/offer/`;
+        const url = `${URL}restaurants/${restaurantId}/offers/`;
+        
         const data = {
             method: 'post',
             body: JSON.stringify({
@@ -125,18 +142,16 @@ class RestaurantService {
                 start: start,
                 end: end
             }),
-            headers: {
-                'content-type': 'application/json'
-            }
+            headers: this.getAuthorizationHeader()
         }
         return fetch(url, data)
             .then(function(response) {
-                return response.json();
+                return response;
             });
     }
 
     addEvent = (title, text, start, end, restaurantId) => {
-        const url = `${URL}restaurants/${restaurantId}/event/`;
+        const url = `${URL}restaurants/${restaurantId}/events/`;
         const data = {
             method: 'post',
             body: JSON.stringify({
@@ -145,59 +160,59 @@ class RestaurantService {
                 start: start,
                 end: end
             }),
-            headers: {
-                'content-type': 'application/json'
-            }
+            headers: this.getAuthorizationHeader()
         }
         return fetch(url, data)
             .then(function(response) {
-                return response.json();
+                return response;
             });
     }
 
     likeOffer = (id) => {
-        const url = `${URL}restaurants/offer/${id}/like/`;
-        return fetch(url)
+        const url = `${URL}offers/${id}/like/`;
+        const data = {
+            headers: this.getAuthorizationHeader()
+        };
+        return fetch(url, data)
             .then(function(response) {
-                return response.json();
+                return response;
             });
     }
 
     likeEvent = (id) => {
-        const url = `${URL}restaurants/event/${id}/like/`;
-        return fetch(url)
+        const url = `${URL}events/${id}/like/`;
+        const data = {
+            headers: this.getAuthorizationHeader()
+        };
+        return fetch(url, data)
             .then(function(response) {
-                return response.json();
+                return response;
             });
     }
 
     editOffer = (offer) => {
-        const url = `${URL}restaurants/offer/${offer.id}/`;
+        const url = `${URL}offers/${offer.id}/`;
         const data = {
             method: 'put',
             body: JSON.stringify(offer),
-            headers: {
-                'content-type': 'application/json'
-            }
+            headers: this.getAuthorizationHeader()
         }
         return fetch(url, data)
             .then(function(response) {
-                return response.json();
+                return response;
             });
     }
 
     editEvent = (event) => {
-        const url = `${URL}restaurants/event/${event.id}/`;
+        const url = `${URL}events/${event.id}/`;
         const data = {
             method: 'put',
             body: JSON.stringify(event),
-            headers: {
-                'content-type': 'application/json'
-            }
+            headers: this.getAuthorizationHeader()
         }
         return fetch(url, data)
             .then(function(response) {
-                return response.json();
+                return response;
             });
     }
 }

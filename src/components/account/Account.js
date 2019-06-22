@@ -11,7 +11,6 @@ class Account extends Component {
             password: ''
         };
         this.onChange = this.onChange.bind(this);
-        this.getUser = this.getUser.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -28,11 +27,6 @@ class Account extends Component {
             user.password = this.state.password;
         }
         this.props.updateUser(user);
-    }
-
-    getUser() {
-        const { buyer, owner } = this.props;
-        return buyer?buyer:owner;
     }
 
     
@@ -55,14 +49,14 @@ class Account extends Component {
     }
 
     render() {
-        const { buyer, owner, preventButtonAction } = this.props;
-        const user = this.getUser();
+        const { user, preventButtonAction } = this.props;
         if(user == null){
             return <Redirect to='/'/>;
         }
+        
         return (
             <div className='col-12 zenzero-account'>
-                <h3>{`Edit Account (${buyer?'Buyer': 'Owner'})`}</h3>
+                <h3>{`Edit Account (${user.type == 'buyer'?'Buyer': 'Owner'})`}</h3>
                 <div className='row zenzero-account-details'>
                     <div className='col-2'></div>
                     <ul className="col-8 list-group">
@@ -136,17 +130,17 @@ class Account extends Component {
                 </div>
                 <div className='col-12 text-center zenzero-account-switch'>
                     {
-                        user.isDual ? (
+                        user.buyer && user.owner ? (
                             <h5>
                                 <span 
                                     className="badge badge-info"
-                                    onClick={(e) => this.props.switchUser(e)}>Switch to {buyer? 'Owner': 'Buyer'}?</span>
+                                    onClick={(e) => this.props.switchUser(e)}>Switch to {user.type == 'buyer'? 'Owner': 'Buyer'}?</span>
                             </h5>
                         ) : (
                             <h5>
                                 <span
                                     className="badge badge-dark"
-                                    onClick={(e) => this.props.registerUserAsSecondType(e)}>Register as {buyer? 'Owner': 'Buyer'}?</span>
+                                    onClick={(e) => this.props.registerUserAsSecondType(e)}>Register as {user.type == 'buyer'? 'Owner': 'Buyer'}?</span>
                             </h5>
                         )
                     }

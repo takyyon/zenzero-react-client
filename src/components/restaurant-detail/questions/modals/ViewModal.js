@@ -21,10 +21,13 @@ class ViewModal extends Component {
 
     handleSubmit(e) {
         this.props.addComment(e, this.state.comment);
+        this.setState({
+            comment: ''
+        });
     }
 
     render() {
-        const { question, handleClose, owner, openRestaurant, openBuyer } = this.props;
+        const { question, handleClose, user, openRestaurant, openBuyer, restaurant } = this.props;
         return (
             <div className='zenzero-question-modal'>
                 <div className="modal fade show" id="exampleModalLong" tabIndex="-1" role="dialog">
@@ -41,17 +44,17 @@ class ViewModal extends Component {
                                 <div className='form-group'>
                                     <span
                                         className="badge badge-dark"
-                                        onClick={(e) => openRestaurant(e, question.restaurant.id)}
+                                        onClick={(e) => openRestaurant(e, question.restaurant._id)}
                                     >{question.restaurant.name}</span>
                                     &nbsp; &nbsp;
                                     <span
                                         className="badge badge-warning"
-                                        onClick={(e) => openBuyer(e, question.user.id)}
+                                        onClick={(e) => openBuyer(e, question.user._id)}
                                     >{`Posted By: ${question.user.name}`}</span>
                                 </div>
                                 <p>{question.text}</p>
                                 <div className='form-group'>
-                                    <ul className='list-group'>
+                                    <ul className='list-group zenzero-question-comment'>
                                         {
                                             question.text && question.comments.map((comment, index) => 
                                                 <li
@@ -66,7 +69,10 @@ class ViewModal extends Component {
                                 </div>
                             </div>
                             {
-                                owner && (
+                                user && user.type == 'owner' && 
+                                    (!restaurant ||
+                                        (restaurant && restaurant.user &&
+                                            restaurant.user._id == user.id)) && (
                                     <div className="modal-footer">        
                                         <div className='col-9 text-left'>
                                             <textarea
@@ -75,6 +81,7 @@ class ViewModal extends Component {
                                                 rows='2'
                                                 placeholder="Owner's Comment"
                                                 onChange={this.handleOnChange}
+                                                value={this.state.comment}
                                             >
                                             </textarea>
                                         </div>

@@ -1,6 +1,7 @@
 import {URL} from './../utility/constants';
+import ConnectionService from './ConnectionService';
 
-class UserService {
+class UserService extends ConnectionService{
 
     static instance = null;
 
@@ -12,51 +13,72 @@ class UserService {
     }
 
     loginBuyer(email, password) {
-        const url = `${URL}login/buyer?email=${email}&password=${password}/`;
-        return fetch(url)
+        const url = `${URL}users/buyer/login/`;
+        
+        const credentials = {
+            'email': email,
+            'password': password
+        };
+        const data = {
+            method: 'post',
+            body: JSON.stringify(credentials),
+            headers: this.getAuthorizationHeader()
+        }
+        return fetch(url, data)
             .then(function(response) {
-                return response.json();
+                return response;
             });
     }
 
     loginOwner(email, password) {
-        const url = `${URL}login/owner?email=${email}&password=${password}/`;
-        return fetch(url)
+        const url = `${URL}users/owner/login/`;
+        const credentials = {
+            'email': email,
+            'password': password
+        };
+        
+        const data = {
+            method: 'post',
+            body: JSON.stringify(credentials),
+            headers: this.getAuthorizationHeader()
+        }
+        return fetch(url, data)
             .then(function(response) {
-                return response.json();
+                return response;
             });
     }
 
     fetchUser() {
-        const url = `${URL}user/session/`;
-        return fetch(url)
+        const url = `${URL}users/session/`;
+        const data = {
+            headers: this.getAuthorizationHeader()
+        }
+        return fetch(url, data)
             .then(function(response) {
-                return response.json();
+                return response;
             });
     }
 
     registerUser = (name, email, password, type) => {
-        const url = `${URL}user/register/${type}/`;
+        const url = `${URL}users/register/${type}/`;
         const user = {
-            name: name,
-            email: email,
-            password: password
+            'email': email,
+            'password': password,
+            'name': name
         };
         const data = {
             method: 'post',
             body: JSON.stringify(user),
-            headers: {
-                'content-type': 'application/json'
-            }
+            headers: this.getAuthorizationHeader()
         }
         return fetch(url, data)
             .then(function(response) {
-                return response.json();
+                return response;
             });
     }
 
     findBuyerInfoById = (id) => {
-        const url = `${URL}user/${id}/buyer/`; 
+        const url = `${URL}users/${id}/buyer/`; 
         return fetch(url)
             .then(function(response) {
                 return response.json();
@@ -64,7 +86,7 @@ class UserService {
     }
 
     findOwnerInfoById = (id) => {
-        const url = `${URL}user/${id}/owner/`; 
+        const url = `${URL}users/${id}/owner/`; 
         return fetch(url)
             .then(function(response) {
                 return response.json();
@@ -72,41 +94,45 @@ class UserService {
     }
 
     registerUserAsSecondType = (type)  => {
-        const url = `${URL}user/dual-register/${type}/`; 
+        const url = `${URL}users/${type}/register`; 
         return fetch(url)
             .then(function(response) {
-                return response.json();
+                return response;
             });
     }
 
     updateUser(newUser) {
-        const url = `${URL}user/update/${newUser.userId}/`;
+        const url = `${URL}users/update/`;
         const data = {
             method: 'put',
             body: JSON.stringify(newUser),
-            headers: {
-                'content-type': 'application/json'
-            }
+            headers: this.getAuthorizationHeader()
         }
         return fetch(url, data)
             .then(function(response) {
-                return response.json();
+                return response;
             });
     }
 
     logout() {
-        const url = `${URL}logout/`;
-        return fetch(url)
+        const url = `${URL}users/logout/`;
+        const data = {
+            headers: this.getAuthorizationHeader()
+        }
+        return fetch(url, data)
             .then(function(response) {
-                return response.json();
+                return response;
             });
     }
 
     switchUser() {
-        const url = `${URL}switch-user/`;
-        return fetch(url)
+        const url = `${URL}users/switch/`;
+        const data = {
+            headers: this.getAuthorizationHeader()
+        }
+        return fetch(url, data)
             .then(function(response) {
-                return response.json();
+                return response;
             });
     }
 

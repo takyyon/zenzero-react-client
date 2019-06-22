@@ -3,13 +3,14 @@ import './index.scss';
 import ViewModal from './modals/ViewModal';
 import EditModal from './modals/EditModal';
 
-const Offers = ({offers, toggleModal, toggleEditAddModal, selected, showModal, 
-    buyer, owner, add, edit, deleteOffer, editOffer, openRestaurant, likOffer, profilePage  }) => {
+const Offers = ({offers, toggleModal, toggleEditAddModal, selected, showModal, restaurant,
+    user, add, edit, deleteOffer, editOffer, openRestaurant, likOffer, profilePage  }) => {
     return (
         <div className='zenzero-restaurant-offers'>
             <h3>Offers &nbsp;<i className="far fa-arrow-alt-circle-right"></i></h3>
             {
-                owner && (
+                user && user.type == 'owner' && restaurant.user &&
+                    (restaurant.user._id == user.id) && (
                     <span
                         className="badge badge-secondary"
                         onClick={(e) => {
@@ -25,13 +26,14 @@ const Offers = ({offers, toggleModal, toggleEditAddModal, selected, showModal,
             <div className="row flex-row flex-nowrap">
                 {
                     offers && offers.map((offer, index) => {
+                        
                         return (
                             <div
                                 key={`offers-${index}`}
                                 className="col-2 text-center zenzero-restaurant-offer"
-                                onClick={(e) => toggleModal(e, offer.id)}>
+                                onClick={(e) => toggleModal(e, offer._id)}>
                                 <div className="card card-block">
-                                    {offer.title}
+                                    {offer.code}
                                 </div>
                             </div>
                         );
@@ -44,7 +46,7 @@ const Offers = ({offers, toggleModal, toggleEditAddModal, selected, showModal,
                 }
             </div>
             {
-                showModal && (
+                showModal && (add || (!add && selected)) && (
                     (edit || add) ? (
                         <EditModal
                             offer={selected}
@@ -59,8 +61,7 @@ const Offers = ({offers, toggleModal, toggleEditAddModal, selected, showModal,
                             handleClose={toggleModal}
                             toggleEditAddModal={toggleEditAddModal}
                             deleteOffer={deleteOffer}
-                            buyer={buyer}
-                            owner={owner}
+                            user={user}
                             openRestaurant={openRestaurant}
                             likOffer={likOffer}
                         />

@@ -20,6 +20,12 @@ const findBuyerInfoById = (dispatch, id) => {
         .then((user) => dispatch({type: 'FIND_BUYER_INFO_ID', userInfo: user}))
 };
 
+const deRegister = (dispatch, id, userId) => {
+    restaurantService
+        .deRegister(id)
+        .then((response) => findOwnerInfoById(dispatch, userId))
+};
+
 const findOwnerInfoById = (dispatch, id) => {
     userService
         .findOwnerInfoById(id)
@@ -49,7 +55,8 @@ const dispatchToPropertyMapper = dispatch => ({
     findOwnerInfoById: (id) => findOwnerInfoById(dispatch, id),
     findQuestionById: (id) => findQuestionById(dispatch, id),
     findOfferById: (id) => findOfferById(dispatch, id),
-    findEventById: (id) => findEventById(dispatch, id)
+    findEventById: (id) => findEventById(dispatch, id),
+    deRegister: (id, userId) => deRegister(dispatch, id, userId),
 });
 
 

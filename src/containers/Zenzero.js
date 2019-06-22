@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import Home from './../components/Home';
 import Header from './../components/header/Header';
 import './index.scss';
@@ -16,7 +16,8 @@ class Zenzero extends Component {
             hideRightMenu: false,
             showLoginPopup: false,
             term: '',
-            location: 'Boston, MA'
+            location: '',
+            search: false
         };
         this.toggleHideRightMenu = this.toggleHideRightMenu.bind(this);
         this.toggleLoginPopup = this.toggleLoginPopup.bind(this);
@@ -24,10 +25,12 @@ class Zenzero extends Component {
         this.findRestaurants = this.findRestaurants.bind(this);
         this.preventButtonAction = this.preventButtonAction.bind(this);
         this.becomeOwner = this.becomeOwner.bind(this);
+        this.deRegister = this.deRegister.bind(this);
         this.updateUser = this.updateUser.bind(this);
         this.registerUserAsSecondType = this.registerUserAsSecondType.bind(this);
         this.switchUser = this.switchUser.bind(this);
         this.logout = this.logout.bind(this);
+        this.props.fetchUserInSession();
     }
 
     componentDidMount() {
@@ -40,7 +43,7 @@ class Zenzero extends Component {
 
     registerUserAsSecondType(e) {
         this.preventButtonAction(e);
-        this.props.registerUserAsSecondType(this.props.buyer ? 'buyer': 'owner');
+        this.props.registerUserAsSecondType(this.props.user.type == 'owner' ? 'buyer': 'owner');
     }
 
     switchUser(e) {
@@ -60,6 +63,12 @@ class Zenzero extends Component {
         this.props.ownRestaurant(id, this.state.term, this.state.location);
     }
 
+    deRegister(e, id) {
+        this.preventButtonAction(e);
+
+        this.props.deRegister(id, this.state.term, this.state.location);
+    }
+
     preventButtonAction(e) {
         if(e){
             e.preventDefault();
@@ -71,6 +80,7 @@ class Zenzero extends Component {
         /**
          * Signup or Login here
          */
+        
         if(login) {
             if(buyer){
                 this.props.loginBuyer(email, password);
@@ -95,7 +105,8 @@ class Zenzero extends Component {
     findRestaurants(term, location){
         this.setState({
             term: term,
-            location: location
+            location: location ? location: 'Boston, MA',
+            search: true
         });
         /**
          * Search all restaurants according to the term/location
@@ -112,7 +123,14 @@ class Zenzero extends Component {
 
     render() {
         const { hideRightMenu, showLoginPopup, term, location } = this.state;
-        const { buyer, owner, restaurants } = this.props;
+        const { user, restaurants } = this.props;
+        if(this.state.search) {
+            this.setState({
+                search: false
+            }, () => {
+                return <Redirect to='/'></Redirect>
+            });
+        }
 
         return (
             <Router>
@@ -121,8 +139,7 @@ class Zenzero extends Component {
                         hideRightMenu={hideRightMenu}
                         toogleHideRightMenu={this.toggleHideRightMenu}
                         toggleLoginPopup={this.toggleLoginPopup}
-                        buyer={buyer}
-                        owner={owner}
+                        user={user}
                         findRestaurants={this.findRestaurants}
                         preventButtonAction={this.preventButtonAction}
                         switchUser={this.switchUser}
@@ -138,9 +155,9 @@ class Zenzero extends Component {
                                     history={props.history}
                                     term={term}
                                     location={location}
-                                    buyer={buyer}
-                                    owner={owner}
+                                    user={user}
                                     becomeOwner={this.becomeOwner}
+                                    deRegister={this.deRegister}
                                 />
                             }/>
                         <Route exact path='/restaurant/:restaurantId'
@@ -149,8 +166,7 @@ class Zenzero extends Component {
                                     preventButtonAction={this.preventButtonAction}
                                     history={props.history}
                                     restaurantId={props.match.params.restaurantId}
-                                    buyer={buyer}
-                                    owner={owner}
+                                    user={user}
                                 />
                             }
                         />
@@ -160,9 +176,8 @@ class Zenzero extends Component {
                                     preventButtonAction={this.preventButtonAction}
                                     userId={props.match.params.userId}
                                     history={props.history}
-                                    buyer={buyer}
-                                    owner={owner}
-                                    buyerProfile={true}
+                                    user={user}
+                                    buyer={true}
                                 />
                             }
                         />
@@ -172,9 +187,8 @@ class Zenzero extends Component {
                                     preventButtonAction={this.preventButtonAction}
                                     userId={props.match.params.userId}
                                     history={props.history}
-                                    buyer={buyer}
-                                    owner={owner}
-                                    buyerProfile={false}
+                                    user={user}
+                                    buyer={false}
                                 />
                             }
                         />
@@ -182,8 +196,7 @@ class Zenzero extends Component {
                             render={(props) => 
                                 <Account
                                     preventButtonAction={this.preventButtonAction}
-                                    buyer={buyer}
-                                    owner={owner}
+                                    user={user}
                                     updateUser={this.updateUser}
                                     registerUserAsSecondType={this.registerUserAsSecondType}
                                     switchUser={this.switchUser}

@@ -31,6 +31,7 @@ class Restaurant extends Component {
         this.fetchRestaurantData = this.fetchRestaurantData.bind(this);
         this.likOffer = this.likOffer.bind(this);
         this.likeEvent = this.likeEvent.bind(this);
+        this.fetchRestaurantData();
     }
 
     likOffer(e, id) {
@@ -44,7 +45,7 @@ class Restaurant extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if(prevProps.restaurantId != this.props.restaurantId) {
+        if(prevProps.restaurantId && prevProps.restaurantId != this.props.restaurantId) {
             this.fetchRestaurantData();
         } 
     }
@@ -56,9 +57,10 @@ class Restaurant extends Component {
             showQuestionModal: false,
             showEventModal: false,
             showOfferModal: false
+        }, () => {
+            this.props.findRestaurantById(this.props.restaurantId);
         });
-        const { restaurantId } = this.props;
-        this.props.findRestaurantById(restaurantId);
+        
     }
 
     componentDidMount(){
@@ -77,6 +79,10 @@ class Restaurant extends Component {
 
     openRestaurant(e, id){
         this.props.preventButtonAction(e);
+        const  { user } = this.props;
+        if(user && user.type == 'owner') {
+            return;
+        }
         this.props.history.push(`/restaurant/${id}`);
     }
 
@@ -96,7 +102,8 @@ class Restaurant extends Component {
         this.props.preventButtonAction(e);
         if(id) {
             this.props.findOfferById(id);
-        }
+            
+        } 
         this.setState({
             showOfferModal: !this.state.showOfferModal,
             edit: false,
@@ -150,7 +157,7 @@ class Restaurant extends Component {
          */
         const { restaurantId, event } = this.props;
         if(event) {
-            this.props.deleteEvent(event.id, restaurantId);
+            this.props.deleteEvent(event._id, restaurantId);
         }
     }
 
@@ -180,7 +187,7 @@ class Restaurant extends Component {
          */
         const { restaurantId, offer } = this.props;
         if(offer) {
-            this.props.deleteOffer(offer.id, restaurantId);
+            this.props.deleteOffer(offer._id, restaurantId);
         }
     }
 
@@ -199,17 +206,18 @@ class Restaurant extends Component {
          */
         const { restaurantId, question } = this.props;
         if(question) {
-            this.props.addComment(comment, question.id, restaurantId);
+            this.props.addComment(comment, question._id, restaurantId);
         }
     }
 
     render() {
         if(!this.props.restaurant){
-            return;
+            return null;
         }
         const restaurant = this.props.restaurant;
-        const { buyer, owner, question, offer, event } = this.props;
+        const { user, question, offer, event } = this.props;
         const { showQuestionModal, showEventModal, showOfferModal, add, edit} = this.state;
+        
         return (
             <div className='zenzero-restaurant-detail'>
                 <div className='row'>
@@ -228,10 +236,10 @@ class Restaurant extends Component {
                                 </h2>
                                 <h6>
                                     {
-                                        !owner && restaurant.user && (
+                                        restaurant.user && (
                                             <span
                                                 className="badge badge-info zenzero-owner"
-                                                onClick={(e) => this.openOwner(e, restaurant.user.id)}>
+                                                onClick={(e) => this.openOwner(e, restaurant.user._id)}>
                                                 {`Owned By: ${restaurant.user.name}`}
                                             </span>
                                         )
@@ -293,9 +301,9 @@ class Restaurant extends Component {
                             toggleModal={this.toggleQuestionModal}
                             toggleEditAddModal={this.toggleEditAddModal}
                             selected={question}
+                            restaurant={restaurant}
                             showModal={showQuestionModal}
-                            buyer={buyer}
-                            owner={owner}
+                            user={user}
                             add={add}
                             addQuestion={this.addQuestion}
                             addComment={this.addComment}
@@ -311,9 +319,9 @@ class Restaurant extends Component {
                             toggleModal={this.toggleOfferModal}
                             toggleEditAddModal={this.toggleEditAddModal}
                             selected={offer}
+                            restaurant={restaurant}
                             showModal={showOfferModal}
-                            buyer={buyer}
-                            owner={owner}
+                            user={user}
                             add={add}
                             edit={edit}
                             deleteOffer={this.deleteOffer}
@@ -331,9 +339,9 @@ class Restaurant extends Component {
                             toggleModal={this.toggleEventModal}
                             toggleEditAddModal={this.toggleEditAddModal}
                             selected={event}
+                            restaurant={restaurant}
                             showModal={showEventModal}
-                            buyer={buyer}
-                            owner={owner}
+                            user={user}
                             add={add}
                             edit={edit}
                             deleteEvent={this.deleteEvent}
