@@ -8,6 +8,7 @@ import RestaurantGrid from '../components/restaurant-grid/RestaurantGrid';
 import Restaurant from './Restaurant';
 import Profile from './../containers/Profile';
 import Account from '../components/account/Account';
+import Admin from './Admin';
 
 class Zenzero extends Component {
     constructor(props){
@@ -17,7 +18,8 @@ class Zenzero extends Component {
             showLoginPopup: false,
             term: '',
             location: '',
-            search: false
+            search: false,
+            admin: false
         };
         this.toggleHideRightMenu = this.toggleHideRightMenu.bind(this);
         this.toggleLoginPopup = this.toggleLoginPopup.bind(this);
@@ -53,6 +55,12 @@ class Zenzero extends Component {
 
     logout(e) {
         this.preventButtonAction(e);
+        if(this.state.admin) {
+            this.setState({
+                admin: false
+            });
+            return;
+        }
         this.props.logout();
     }
 
@@ -77,11 +85,22 @@ class Zenzero extends Component {
         }
     }
 
+    isAdminUser(email, password) {
+        return email == 'admin' && password == 'admin';
+    }
+
     loginOrSignup(email, password, buyer, name='', login=true) {
         /**
          * Signup or Login here
          */
-        
+        if(this.isAdminUser(email, password)) {
+            if(login){
+                this.setState({
+                    admin: true
+                });
+            }
+            return;
+        }
         if(login) {
             if(buyer){
                 this.props.loginBuyer(email, password);
@@ -123,7 +142,7 @@ class Zenzero extends Component {
     }
 
     render() {
-        const { hideRightMenu, showLoginPopup, term, location } = this.state;
+        const { hideRightMenu, showLoginPopup, term, location, admin } = this.state;
         const { user, restaurants } = this.props;
         if(this.state.search) {
             this.setState({
@@ -145,84 +164,93 @@ class Zenzero extends Component {
                         preventButtonAction={this.preventButtonAction}
                         switchUser={this.switchUser}
                         logout={this.logout}
+                        admin={admin}
                     />
-                    <div className='row zenzero-body'>
-                        
-                        <Route exact path='/' 
-                            render={(props) => 
-                                <RestaurantGrid
-                                    preventButtonAction={this.preventButtonAction}
-                                    restaurants={restaurants}
-                                    history={props.history}
-                                    term={term}
-                                    location={location}
-                                    user={user}
-                                    becomeOwner={this.becomeOwner}
-                                    deRegister={this.deRegister}
+                    { admin ? (
+                        <div>
+                            <Admin />
+                        </div>
+                    ): (
+                        <div>
+                            <div className='row zenzero-body'>
+                                <Route exact path='/' 
+                                    render={(props) => 
+                                        <RestaurantGrid
+                                            preventButtonAction={this.preventButtonAction}
+                                            restaurants={restaurants}
+                                            history={props.history}
+                                            term={term}
+                                            location={location}
+                                            user={user}
+                                            becomeOwner={this.becomeOwner}
+                                            deRegister={this.deRegister}
+                                        />
+                                    }/>
+                                <Route exact path='/restaurant/:restaurantId'
+                                    render={(props) =>
+                                        <Restaurant
+                                            preventButtonAction={this.preventButtonAction}
+                                            history={props.history}
+                                            restaurantId={props.match.params.restaurantId}
+                                            user={user}
+                                        />
+                                    }
                                 />
-                            }/>
-                        <Route exact path='/restaurant/:restaurantId'
-                            render={(props) =>
-                                <Restaurant
-                                    preventButtonAction={this.preventButtonAction}
-                                    history={props.history}
-                                    restaurantId={props.match.params.restaurantId}
-                                    user={user}
+                                <Route exact path='/buyer/:userId'
+                                    render={(props) =>
+                                        <Profile
+                                            preventButtonAction={this.preventButtonAction}
+                                            userId={props.match.params.userId}
+                                            history={props.history}
+                                            user={user}
+                                            buyer={true}
+                                        />
+                                    }
                                 />
-                            }
-                        />
-                        <Route exact path='/buyer/:userId'
-                            render={(props) =>
-                                <Profile
-                                    preventButtonAction={this.preventButtonAction}
-                                    userId={props.match.params.userId}
-                                    history={props.history}
-                                    user={user}
-                                    buyer={true}
+                                <Route exact path='/owner/:userId'
+                                    render={(props) =>
+                                        <Profile
+                                            preventButtonAction={this.preventButtonAction}
+                                            userId={props.match.params.userId}
+                                            history={props.history}
+                                            user={user}
+                                            buyer={false}
+                                        />
+                                    }
                                 />
-                            }
-                        />
-                        <Route exact path='/owner/:userId'
-                            render={(props) =>
-                                <Profile
-                                    preventButtonAction={this.preventButtonAction}
-                                    userId={props.match.params.userId}
-                                    history={props.history}
-                                    user={user}
-                                    buyer={false}
+                                <Route exact path='/edit-account'
+                                    render={(props) => 
+                                        <Account
+                                            preventButtonAction={this.preventButtonAction}
+                                            user={user}
+                                            updateUser={this.updateUser}
+                                            registerUserAsSecondType={this.registerUserAsSecondType}
+                                            switchUser={this.switchUser}
+                                        />
+                                    }
                                 />
-                            }
-                        />
-                        <Route exact path='/edit-account'
-                            render={(props) => 
-                                <Account
-                                    preventButtonAction={this.preventButtonAction}
-                                    user={user}
-                                    updateUser={this.updateUser}
-                                    registerUserAsSecondType={this.registerUserAsSecondType}
-                                    switchUser={this.switchUser}
-                                />
-                            }
-                        />
-                    </div>
-                    <div className='row zenzero-footer'>
-
-                    </div>
-                    <div className='zenzero-global-popups'>
-                        {showLoginPopup && (
-                            <LoginSignup
-                                close={this.toggleLoginPopup}
-                                handleSubmit={this.loginOrSignup}
-                            />
-                        )}
-                    </div>
-                    {
-                        showLoginPopup && (
-                            <div className='zenzero-mask'>
-                                &nbsp;
                             </div>
-                        )
-                    }
+                            <div className='row zenzero-footer'>
+
+                            </div>
+                            <div className='zenzero-global-popups'>
+                                {showLoginPopup && (
+                                    <LoginSignup
+                                        close={this.toggleLoginPopup}
+                                        handleSubmit={this.loginOrSignup}
+                                    />
+                                )}
+                            </div>
+                            {
+                                showLoginPopup && (
+                                    <div className='zenzero-mask'>
+                                        &nbsp;
+                                    </div>
+                                )
+                            }
+                        </div> 
+                    )}
+                    
                 </div>
             </Router>
         );

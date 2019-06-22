@@ -59,6 +59,14 @@ class UserService extends ConnectionService{
             });
     }
 
+    getAllUsers() {
+        const url = `${URL}users/`;
+        return fetch(url)
+            .then(function(response) {
+                return response;
+            });
+    }
+
     registerUser = (name, email, password, type) => {
         const url = `${URL}users/register/${type}/`;
         const user = {

@@ -57,7 +57,7 @@ class Header extends Component {
 
     render() {
         const  { showRightMenu } = this.state;
-        const { user } = this.props;
+        const { user, admin } = this.props;
         
         return (
             <div className='row zenzero-header'>
@@ -66,36 +66,41 @@ class Header extends Component {
                     <img src={logo} alt='Logo' className='logo-img'/>
                     <Link to='/'><img src={zenzero} alt='Zenzero' className='logo-txt'/></Link>
                 </div>
+                
                 <div className='col-7'>
-                    <div className="input-group mb-3 zenzero-search">
-                        <input type="text"
-                            id='term'
-                            onChange={this.onChange}
-                            onClick={(e) => this.props.preventButtonAction(e)}
-                            className="form-control zenzero-input-text col-9"
-                            placeholder="Search Restaurant"
-                            aria-label="Search Restaurant"
-                            aria-describedby="basic-addon1" />
-                        
-                        <input type="text"
-                            defaultValue='Boston, MA'
-                            id='location'
-                            onClick={(e) => this.props.preventButtonAction(e) }
-                            onChange={this.onChange}
-                            className="form-control zenzero-input-text col-3"
-                            placeholder="Boston, MA"
-                            aria-label="Boston, MA"
-                            aria-describedby="basic-addon2" />
-                        
-                        <div className="input-group-append">
-                            <button 
-                                className="btn btn-outline-secondary zenzero-button"
-                                type="button"
-                                onClick={(e) => this.handleSearch(e)}>
-                                <i className="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </div>
+                    {
+                        !admin && (
+                            <div className="input-group mb-3 zenzero-search">
+                                <input type="text"
+                                    id='term'
+                                    onChange={this.onChange}
+                                    onClick={(e) => this.props.preventButtonAction(e)}
+                                    className="form-control zenzero-input-text col-9"
+                                    placeholder="Search Restaurant"
+                                    aria-label="Search Restaurant"
+                                    aria-describedby="basic-addon1" />
+                                
+                                <input type="text"
+                                    defaultValue='Boston, MA'
+                                    id='location'
+                                    onClick={(e) => this.props.preventButtonAction(e) }
+                                    onChange={this.onChange}
+                                    className="form-control zenzero-input-text col-3"
+                                    placeholder="Boston, MA"
+                                    aria-label="Boston, MA"
+                                    aria-describedby="basic-addon2" />
+                                
+                                <div className="input-group-append">
+                                    <button 
+                                        className="btn btn-outline-secondary zenzero-button"
+                                        type="button"
+                                        onClick={(e) => this.handleSearch(e)}>
+                                        <i className="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        )
+                    }
                 </div>
                 <div className='col-2 text-right'>
                     {
@@ -134,12 +139,12 @@ class Header extends Component {
                                         onClick={(e) => this.props.switchUser(e)}>Switch Role</button>)}
                             { (user) && 
                                 (<div className="dropdown-divider"></div>)}
-                            { (user) && 
+                            { (user || admin) && 
                                 (
                                     <button
                                         className='dropdown-item'
                                         onClick={(e) => this.props.logout(e)}>Log out</button>)}
-                            { (!user) && 
+                            { !user && !admin && 
                                 (<button className='dropdown-item' onClick={(e) => this.props.toggleLoginPopup(e, true)}>
                                     Login / Signup</button>)}
                         </div>
