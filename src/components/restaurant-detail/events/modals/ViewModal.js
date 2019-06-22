@@ -2,7 +2,7 @@ import React from 'react';
 import './../index.scss';
 
 const ViewModal = ({ event, handleClose, toggleEditAddModal,
-        deleteEvent, user, openRestaurant, likeEvent, profilePage }) => {
+        deleteEvent, user, openRestaurant, likeEvent, profilePage, isEventLiked }) => {
     return (
         <div className='zenzero-event-modal'>
             <div className="modal fade show" id="exampleModalLong" tabIndex="-1" role="dialog">
@@ -13,9 +13,9 @@ const ViewModal = ({ event, handleClose, toggleEditAddModal,
                                 {event.title}
                                 &nbsp;
                                 {user && user.type == 'buyer' && (
-                                    <i class={`fas fa-star ${event.going?'zenzero-highlight':''}`}
+                                    <i class={`fas fa-star zenzero-${isEventLiked(event.likedBy)?'highlight':'non-highlight'}`}
                                         onClick={(e) => {
-                                            likeEvent && likeEvent(e, event.id)
+                                            likeEvent && likeEvent(e, isEventLiked(event.likedBy), event._id)
                                         }}
                                     ></i>
                                 )}
@@ -27,7 +27,7 @@ const ViewModal = ({ event, handleClose, toggleEditAddModal,
                             <div className='form-group'>
                                 <span
                                     className="badge badge-dark"
-                                    onClick={(e) => openRestaurant(e, event.restaurant.id)}
+                                    onClick={(e) => openRestaurant(e, event.restaurant._id)}
                                 >{event.restaurant.name}</span>
                             </div>
                             <div className='form-group'>

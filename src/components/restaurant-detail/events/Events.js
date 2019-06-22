@@ -5,7 +5,7 @@ import EditModal from './modals/EditModal';
 
 const Events = ({ events, toggleModal, toggleEditAddModal,
     selected, showModal, user, add, edit, deleteEvent, restaurant,
-    editEvent, openRestaurant, likeEvent, profilePage }) => {
+    editEvent, openRestaurant, likeEvent, profilePage, isEventLiked }) => {
     return (
         <div className='zenzero-restaurant-events'>
             <h3>Events &nbsp;<i className="far fa-arrow-alt-circle-right"></i></h3>
@@ -64,6 +64,7 @@ const Events = ({ events, toggleModal, toggleEditAddModal,
                             user={user}
                             openRestaurant={openRestaurant}
                             likeEvent={likeEvent}
+                            isEventLiked={isEventLiked}
                         />
                     )
                 )

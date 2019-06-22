@@ -190,6 +190,28 @@ class RestaurantService extends ConnectionService {
             });
     }
 
+    unLikeOffer = (id) => {
+        const url = `${URL}offers/${id}/un-like/`;
+        const data = {
+            headers: this.getAuthorizationHeader()
+        };
+        return fetch(url, data)
+            .then(function(response) {
+                return response;
+            });
+    }
+
+    unLikeEvent = (id) => {
+        const url = `${URL}events/${id}/un-like/`;
+        const data = {
+            headers: this.getAuthorizationHeader()
+        };
+        return fetch(url, data)
+            .then(function(response) {
+                return response;
+            });
+    }
+
     editOffer = (offer) => {
         const url = `${URL}offers/${offer.id}/`;
         const data = {

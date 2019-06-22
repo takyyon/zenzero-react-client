@@ -31,16 +31,48 @@ class Restaurant extends Component {
         this.fetchRestaurantData = this.fetchRestaurantData.bind(this);
         this.likOffer = this.likOffer.bind(this);
         this.likeEvent = this.likeEvent.bind(this);
+        this.isEventLiked = this.isEventLiked.bind(this);
+        this.isOfferLiked = this.isOfferLiked.bind(this);
         this.fetchRestaurantData();
     }
 
-    likOffer(e, id) {
+    isEventLiked(likes) {
+        const { user } = this.props;
+        for(var i = 0;i<likes.length;++i) {
+            if(user.id == likes[i]._id){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    isOfferLiked(likes) {
+        const { user } = this.props;
+        for(var i = 0;i<likes.length;++i) {
+            if(user.id == likes[i]._id){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    likOffer(e, liked, id) {
         this.props.preventButtonAction(e);
+        
+        if(liked) {
+            this.props.unLikeOffer(id, this.state.restaurantId);
+            return;
+        }
         this.props.likeOffer(id, this.state.restaurantId);
     }
 
-    likeEvent(e, id) {
+    likeEvent(e, liked, id) {
         this.props.preventButtonAction(e);
+        
+        if(liked) {
+            this.props.unLikeEvent(id, this.state.restaurantId);
+            return;
+        }
         this.props.likeEvent(id, this.state.restaurantId);
     }
 
@@ -328,6 +360,7 @@ class Restaurant extends Component {
                             editOffer={this.editOffer}
                             openRestaurant={this.openRestaurant}
                             likOffer={this.likOffer}
+                            isOfferLiked={this.isOfferLiked}
                         />
                     </div>
                 </div>
@@ -348,6 +381,7 @@ class Restaurant extends Component {
                             editEvent={this.editEvent}
                             openRestaurant={this.openRestaurant}
                             likeEvent={this.likeEvent}
+                            isEventLiked={this.isEventLiked}
                         />
                     </div>
                 </div>

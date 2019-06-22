@@ -78,13 +78,25 @@ const addEvent = (dispatch, title, text, start, end, restaurantId) => {
 const likeEvent = (dispatch, id, restaurantId) => {
     restaurantService
         .likeEvent(id)
-        .then((response) => findRestaurantById(dispatch, restaurantId))
+        .then((response) => findEventById(dispatch, id))
 };
 
 const likeOffer = (dispatch, id, restaurantId) => {
     restaurantService
         .likeOffer(id)
-        .then((response) => findRestaurantById(dispatch, restaurantId))
+        .then((response) => findOfferById(dispatch, id))
+};
+
+const unLikeEvent = (dispatch, id, restaurantId) => {
+    restaurantService
+        .unLikeEvent(id)
+        .then((response) => findEventById(dispatch, id))
+};
+
+const unLikeOffer = (dispatch, id, restaurantId) => {
+    restaurantService
+        .unLikeOffer(id)
+        .then((response) => findOfferById(dispatch, id))
 };
 
 const editOffer = (dispatch, offer, restaurantId) => {
@@ -112,6 +124,8 @@ const dispatchToPropertyMapper = dispatch => ({
     addEvent: (title, text, start, end, restaurantId) => addEvent(dispatch, title, text, start, end, restaurantId),
     likeOffer: (id, restaurantId) => likeOffer(dispatch, id, restaurantId),
     likeEvent: (id, restaurantId) => likeEvent(dispatch, id, restaurantId),
+    unLikeOffer: (id, restaurantId) => unLikeOffer(dispatch, id, restaurantId),
+    unLikeEvent: (id, restaurantId) => unLikeEvent(dispatch, id, restaurantId),
     editOffer: (offer, restaurantId) => editOffer(dispatch, offer, restaurantId),
     editEvent: (event, restaurantId) => editEvent(dispatch, event, restaurantId)
 });
