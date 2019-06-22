@@ -67,8 +67,9 @@ class Buyer extends Component {
     }
 
     render() {
-        const { buyer, owner, offers, events, questions, question, offer, event } = this.props;
+        const { buyer, owner, offers, events, questions, question, offer, event, preventButtonAction } = this.props;
         const { showEventModal, showOfferModal, showQuestionModal }  = this.state;
+        
         return (
             <div className='zenzero-buyer-profile'>
                 <div className='row'>
@@ -86,6 +87,7 @@ class Buyer extends Component {
                                     edit={false}
                                     profilePage={true}
                                     openRestaurant={this.openRestaurant}
+                                    preventButtonAction={preventButtonAction}
                                 />
                             </div>
                         </div>
@@ -102,6 +104,7 @@ class Buyer extends Component {
                                     edit={false}
                                     profilePage={true}
                                     openRestaurant={this.openRestaurant}
+                                    preventButtonAction={preventButtonAction}
                                 />
                             </div>
                         </div>
@@ -118,6 +121,7 @@ class Buyer extends Component {
                             profilePage={true}
                             openRestaurant={this.openRestaurant}
                             openBuyer={this.openBuyer}
+                            preventButtonAction={preventButtonAction}
                         />
                     </div>
                 </div>

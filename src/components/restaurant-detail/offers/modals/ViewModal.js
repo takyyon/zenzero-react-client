@@ -2,7 +2,7 @@ import React from 'react';
 import './../index.scss';
 
 const ViewModal = ({ offer, handleClose, toggleEditAddModal,
-        deleteOffer, buyer, owner, openRestaurant, likOffer, profilePage }) => {
+        deleteOffer, user, openRestaurant, likOffer, profilePage, isOfferLiked }) => {
     return (
         <div className='zenzero-offer-modal'>
             <div className="modal fade show" id="exampleModalLong" tabIndex="-1" role="dialog">
@@ -12,9 +12,9 @@ const ViewModal = ({ offer, handleClose, toggleEditAddModal,
                             <h4 className="modal-title">
                                 {offer.code}
                                 &nbsp;
-                                {buyer && !profilePage && (
-                                    <i class={`fas fa-star ${offer.star?'zenzero-highlight':''}`}
-                                        onClick={(e) => likOffer && likOffer(e, offer.id)}
+                                {user && user.type == 'buyer' && (
+                                    <i class={`fas fa-star zenzero-${isOfferLiked(offer.likedBy)?'highlight':'non-highlight'}`}
+                                        onClick={(e) => likOffer && likOffer(e, isOfferLiked(offer.likedBy), offer._id)}
                                     ></i>)}
                             </h4>
                             <i className="fas fa-times zenzero-close-modal"
@@ -24,7 +24,7 @@ const ViewModal = ({ offer, handleClose, toggleEditAddModal,
                             <div className='form-group'>
                                 <span
                                     className="badge badge-dark"
-                                    onClick={(e) => openRestaurant(e, offer.restaurant.id)}
+                                    onClick={(e) => openRestaurant(e, offer.restaurant._id)}
                                 >{offer.restaurant.name}</span>
                             </div>
                             <div className='form-group'>
@@ -48,7 +48,7 @@ const ViewModal = ({ offer, handleClose, toggleEditAddModal,
                             </div>
                             <div className='col-6 text-right'>
                                 {
-                                    owner && (
+                                    user && user.type == 'owner' && (
                                         <h3>
                                             <i
                                                 className="fas fa-edit"

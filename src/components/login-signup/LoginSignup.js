@@ -10,7 +10,7 @@ class LoginSignup extends Component {
             email: '',
             name: '',
             password: '',
-            buyer: false
+            buyer: true
         };
         this.toggleLoginState = this.toggleLoginState.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);

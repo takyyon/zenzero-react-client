@@ -23,7 +23,10 @@
                 cursor: pointer;
             }
             &.zenzero-highlight {
-                color: $theme-dark;
+                color: $theme-mid-dark;
+            }
+            &.zenzero-non-highlight {
+                color: $theme-light;
             }
         }
         .modal {

@@ -18,8 +18,7 @@ class RestaurantGrid extends Component {
 
     
     render() {
-        const  { restaurants, term, location, profile, buyer, owner } = this.props;
-
+        const  { restaurants, term, location, profile, user, userId } = this.props;
         return (
             
             <div className='col-12 zenzero-restaurant-grid'>
@@ -39,7 +38,7 @@ class RestaurantGrid extends Component {
                         )
                     }
                 </div>
-                <div className='row zenzero-grid'>
+                <div className='row card-group zenzero-grid'>
                     {
                         restaurants && restaurants.map((restaurant, index) => {
                             return (
@@ -49,9 +48,10 @@ class RestaurantGrid extends Component {
                                     key={`restaurant-${index}`}
                                     openRestaurant={this.openRestaurant}
                                     profile={profile}
-                                    buyer={buyer}
-                                    owner={owner}
+                                    user={user}
+                                    userId={userId}
                                     becomeOwner={this.props.becomeOwner}
+                                    deRegister={this.props.deRegister}
                                 />);
                         })
                     }

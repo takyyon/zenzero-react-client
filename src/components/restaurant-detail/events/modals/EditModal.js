@@ -82,8 +82,9 @@ class EditModal extends Component {
                                         id='text'
                                         rows='3'
                                         onChange={this.handleOnChange}
+                                        placeholder={!add && event ? event.text: 'Sample Point 1\nSample Point 2'}
                                     >
-                                        {!add && event ? event.text: 'Sample Point 1\nSample Point 2'}
+                                        
                                     </textarea>
                                 </div>
                                 <div className='form-group'>

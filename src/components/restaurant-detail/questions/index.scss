@@ -4,6 +4,7 @@
     border-left: 0.5px solid $theme-dark;
     overflow: scroll;
     padding-left: 20px;
+    padding-bottom: 20px;
     .badge {
         padding: 5px;
         margin-bottom: 10px;
@@ -48,6 +49,9 @@
             float: right;
             font-size: 26px;
             cursor: pointer;
+        }
+        .zenzero-question-comment li {
+            margin-top: 10px;
         }
     }
 }

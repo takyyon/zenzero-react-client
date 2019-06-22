@@ -82,8 +82,8 @@ class EditModal extends Component {
                                         id='text'
                                         rows='3'
                                         onChange={this.handleOnChange}
+                                        placeholder={!add && offer ? offer.text: 'Sample Point 1\nSample Point 2'}
                                     >
-                                        {!add && offer ? offer.text: 'Sample Point 1\nSample Point 2'}
                                     </textarea>
                                 </div>
                                 <div className='form-group'>

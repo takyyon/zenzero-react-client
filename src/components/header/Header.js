@@ -16,7 +16,6 @@ class Header extends Component {
         this.onChange = this.onChange.bind(this);
         this.toggleRightMenu = this.toggleRightMenu.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
-        this.getUserId = this.getUserId.bind(this);
     }
 
     onChange(e) {
@@ -56,25 +55,16 @@ class Header extends Component {
         }
     }
 
-    getUserId() {
-        const { buyer, owner } = this.props;
-        
-        if(buyer)
-            return buyer.userId;
-        if(owner)
-            return owner.userId;
-        return null;
-    }
-
     render() {
         const  { showRightMenu } = this.state;
-        const { buyer, owner } = this.props;
+        const { user } = this.props;
         
         return (
             <div className='row zenzero-header'>
+                
                 <div className='col-3 text-left zenzero-logo'>
                     <img src={logo} alt='Logo' className='logo-img'/>
-                    <img src={zenzero} alt='Zenzero' className='logo-txt'/>
+                    <Link to='/'><img src={zenzero} alt='Zenzero' className='logo-txt'/></Link>
                 </div>
                 <div className='col-7'>
                     <div className="input-group mb-3 zenzero-search">
@@ -108,36 +98,48 @@ class Header extends Component {
                     </div>
                 </div>
                 <div className='col-2 text-right'>
+                    {
+                        user && (
+                            user.type == 'buyer' ? (
+                                <i className="fas fa-shopping-cart zenzero-user-icon"
+                                    title='Buyer Profile'></i>
+                            ) : (
+                                <i className="fas fa-business-time zenzero-user-icon"
+                                    title='Owner Profile'></i>
+                            )
+                        )
+                    }
+                    
                     <span className='dropdown zenzero-dropdown'>
                         <i className="fas fa-user-circle" onClick={(e) => this.toggleRightMenu(e)}></i>
                         <div className={`dropdown-menu zenzero-${showRightMenu ? 'show': 'hide'}`}>
-                            { (buyer || owner) && 
+                            { (user) && 
                                 (
                                     <Link to='/edit-account'><button
                                         className='dropdown-item'
                                         id='account'
                                     >Edit Account</button></Link>
                                 )}
-                            { (buyer || owner) && 
+                            { (user) && 
                                 (
-                                    <Link to={`/${buyer?'buyer':'owner'}/${this.getUserId()}`}><button
+                                    <Link to={`/${user.type == 'buyer'? 'buyer': 'owner'}/${user.id}`}><button
                                         className='dropdown-item'
                                         id='profile'
                                     >My Profile</button></Link>
                                 )}
-                            { ((buyer && buyer.isDual) || (owner && owner.isDual)) && 
+                            { user && user.buyer && user.owner && 
                                 (
                                     <button
                                         className='dropdown-item'
                                         onClick={(e) => this.props.switchUser(e)}>Switch Role</button>)}
-                            { (buyer || owner) && 
+                            { (user) && 
                                 (<div className="dropdown-divider"></div>)}
-                            { (buyer || owner) && 
+                            { (user) && 
                                 (
                                     <button
                                         className='dropdown-item'
                                         onClick={(e) => this.props.logout(e)}>Log out</button>)}
-                            { (!buyer && !owner) && 
+                            { (!user) && 
                                 (<button className='dropdown-item' onClick={(e) => this.props.toggleLoginPopup(e, true)}>
                                     Login / Signup</button>)}
                         </div>

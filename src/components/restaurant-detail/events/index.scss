@@ -11,8 +11,8 @@
         cursor: pointer;
     }
     .zenzero-restaurant-event {
-        padding-top: 5px;
-        padding-bottom: 5px;
+        padding-top: 5px !important;
+        padding-bottom: 5px !important;
         cursor: pointer;
     }
     .zenzero-event-modal {
@@ -22,7 +22,10 @@
                 cursor: pointer;
             }
             &.zenzero-highlight {
-                color: $theme-dark;
+                color: $theme-mid-dark;
+            }
+            &.zenzero-non-highlight {
+                color: $theme-light;
             }
         }
         .modal {

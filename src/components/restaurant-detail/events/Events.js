@@ -4,13 +4,14 @@ import ViewModal from './modals/ViewModal';
 import EditModal from './modals/EditModal';
 
 const Events = ({ events, toggleModal, toggleEditAddModal,
-    selected, showModal, buyer, owner, add, edit, deleteEvent,
-    editEvent, openRestaurant, likeEvent, profilePage }) => {
+    selected, showModal, user, add, edit, deleteEvent, restaurant,
+    editEvent, openRestaurant, likeEvent, profilePage, isEventLiked }) => {
     return (
         <div className='zenzero-restaurant-events'>
             <h3>Events &nbsp;<i className="far fa-arrow-alt-circle-right"></i></h3>
             {
-                owner && (
+                user && user.type == 'owner' && restaurant.user &&
+                    (restaurant.user._id == user.id) && (
                     <span
                         className="badge badge-secondary"
                         onClick={(e) => {
@@ -30,7 +31,7 @@ const Events = ({ events, toggleModal, toggleEditAddModal,
                             <div
                                 key={`events-${index}`}
                                 className="col-2 text-center zenzero-restaurant-event"
-                                onClick={(e) => toggleModal(e, event.id)}>
+                                onClick={(e) => toggleModal(e, event._id)}>
                                 <div className="card card-block">
                                     {event.title}
                                 </div>
@@ -45,7 +46,7 @@ const Events = ({ events, toggleModal, toggleEditAddModal,
                 }
             </div>
             {
-                showModal && (
+                showModal && (add || (!add && selected)) && (
                     (edit || add) ? (
                         <EditModal
                             event={selected}
@@ -60,10 +61,10 @@ const Events = ({ events, toggleModal, toggleEditAddModal,
                             handleClose={toggleModal}
                             toggleEditAddModal={toggleEditAddModal}
                             deleteEvent={deleteEvent}
-                            buyer={buyer}
-                            owner={owner}
+                            user={user}
                             openRestaurant={openRestaurant}
                             likeEvent={likeEvent}
+                            isEventLiked={isEventLiked}
                         />
                     )
                 )
