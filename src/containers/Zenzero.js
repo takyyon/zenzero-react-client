@@ -109,7 +109,7 @@ class Zenzero extends Component {
             this.props.loginOwner(email, password);
             return;
         }
-        if(this.buyer) {
+        if(buyer) {
             this.props.registerBuyer(name, email, password);
             return;
         }
