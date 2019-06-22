@@ -1,0 +1,26 @@
+@import './../../utility/scss/commons';
+.zenzero-admin-component {
+    margin-top: 15px;
+    ul {
+        li {
+            font-size: 20px;
+            cursor: pointer;
+        }
+    }
+    .zenzero-admin-data {
+        margin-top: 20px;
+
+        table {
+            tbody {
+                tr{
+                    td {
+                        i {
+                            cursor: pointer;
+                            font-size: 18px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

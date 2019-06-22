@@ -237,6 +237,30 @@ class RestaurantService extends ConnectionService {
                 return response;
             });
     }
+
+    getAllOffers() {
+        const url = `${URL}offers/`;
+        return fetch(url)
+            .then(function(response) {
+                return response;
+            });
+    }
+
+    getAllQuestions() {
+        const url = `${URL}questions/`;
+        return fetch(url)
+            .then(function(response) {
+                return response;
+            });
+    }
+
+    getAllEvents() {
+        const url = `${URL}events/`;
+        return fetch(url)
+            .then(function(response) {
+                return response;
+            });
+    }
 }
 
 export default RestaurantService;
