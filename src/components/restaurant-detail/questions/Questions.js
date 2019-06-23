@@ -9,8 +9,8 @@ const Questions = ({ questions, toggleModal, toggleEditAddModal, selected, openB
         <div className='zenzero-restaurant-questions'>
             <h3>Questions &nbsp; <i className="far fa-arrow-alt-circle-down"></i></h3>
             {
-                (profilePage == null) && user &&
-                    user.type == 'buyer' && (
+                (profilePage == null) && (!user || 
+                    (user && user.type == 'buyer')) && (
                     <span 
                         className="badge badge-secondary"
                         onClick={(e) => {

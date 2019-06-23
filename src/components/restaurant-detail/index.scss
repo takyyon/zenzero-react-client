@@ -2,6 +2,13 @@
 
 .zenzero-restaurant-detail {
     width: 100%;
+    .zenzero-alert-click {
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 0px !important;
+        font-weight: bolder;
+    }
     .zenzero-restaurant-thumb {
         width: 300px;
         height: 300px;
