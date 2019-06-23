@@ -51,7 +51,8 @@ const ViewModal = ({ event, handleClose, toggleEditAddModal,
                             </div>
                             <div className='col-6 text-right'>
                                 {
-                                    user && user.type == 'owner' && (
+                                    user && user.type == 'owner' && 
+                                        event.restaurant.user == user.id && (
                                         <h3>
                                             <i
                                                 class="fas fa-edit"

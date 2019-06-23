@@ -48,7 +48,8 @@ const ViewModal = ({ offer, handleClose, toggleEditAddModal,
                             </div>
                             <div className='col-6 text-right'>
                                 {
-                                    user && user.type == 'owner' && (
+                                    user && user.type == 'owner' &&
+                                        offer.restaurant.user == user.id && (
                                         <h3>
                                             <i
                                                 className="fas fa-edit"
