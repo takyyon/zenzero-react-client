@@ -192,6 +192,7 @@ class Zenzero extends Component {
                                             preventButtonAction={this.preventButtonAction}
                                             history={props.history}
                                             restaurantId={props.match.params.restaurantId}
+                                            toggleLoginPopup={this.toggleLoginPopup}
                                             user={user}
                                         />
                                     }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './index.scss';
 import { browserHistory } from 'react-router';
+import { Alert } from 'reactstrap';
 import Questions from './questions/Questions';
 import Offers from './offers/Offers';
 import Events from './events/Events';
@@ -13,7 +14,8 @@ class Restaurant extends Component {
             add: false,
             showQuestionModal: false,
             showEventModal: false,
-            showOfferModal: false
+            showOfferModal: false,
+            alertBox: false
         };
         this.toggleEventModal = this.toggleEventModal.bind(this);
         this.toggleQuestionModal = this.toggleQuestionModal.bind(this);
@@ -33,7 +35,16 @@ class Restaurant extends Component {
         this.likeEvent = this.likeEvent.bind(this);
         this.isEventLiked = this.isEventLiked.bind(this);
         this.isOfferLiked = this.isOfferLiked.bind(this);
+        this.dismissAlert = this.dismissAlert.bind(this);
+        this.forceLogin = this.forceLogin.bind(this);
         this.fetchRestaurantData();
+    }
+
+    dismissAlert(e, flag = false) {
+        this.props.preventButtonAction(e);
+        this.setState({
+            alertBox: flag
+        });
     }
 
     isEventLiked(likes) {
@@ -120,6 +131,12 @@ class Restaurant extends Component {
 
     toggleQuestionModal(e, id=null) {
         this.props.preventButtonAction(e);
+        const { user } = this.props;
+        if(!user) {
+            this.dismissAlert(e, true);
+            // this.props.toggleLoginPopup(e, true);
+            return;
+        }
         if(id) {
             this.props.findQuestionById(id);
         }
@@ -242,16 +259,33 @@ class Restaurant extends Component {
         }
     }
 
+    forceLogin(e) {
+        this.props.preventButtonAction(e);
+        this.props.toggleLoginPopup(e, true);
+    }
+
     render() {
         if(!this.props.restaurant){
             return null;
         }
+        
         const restaurant = this.props.restaurant;
         const { user, question, offer, event } = this.props;
         const { showQuestionModal, showEventModal, showOfferModal, add, edit} = this.state;
-        
+        if(this.state.alertBox && user){
+            this.dismissAlert();
+        }
         return (
             <div className='zenzero-restaurant-detail'>
+                <Alert color='warning' 
+                    isOpen={this.state.alertBox}
+                    toggle={(e) => this.dismissAlert(e)}>
+                    To ask a question you will need to login as a buyer.
+                    &nbsp;
+                    <button onClick={(e) => {this.forceLogin(e)}} className='zenzero-alert-click'>
+                        {`Click Here `}
+                    </button> to login now.
+                </Alert>
                 <div className='row'>
                     <div className='col-8'>
                         <div className='row'>
